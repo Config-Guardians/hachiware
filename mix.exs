@@ -40,6 +40,9 @@ defmodule Hachiware.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:ash_postgres, "~> 2.0"},
+      {:open_api_spex, "~> 3.0"},
+      {:ash_json_api, "~> 1.0"},
       {:sourceror, "~> 1.8", only: [:dev, :test]},
       {:ash, "~> 3.0"},
       {:igniter, "~> 0.6", only: [:dev, :test]},
@@ -61,7 +64,8 @@ defmodule Hachiware.MixProject do
   defp aliases do
     [
       setup: ["deps.get"],
-      precommit: ["compile --warning-as-errors", "deps.unlock --unused", "format", "test"]
+      precommit: ["compile --warning-as-errors", "deps.unlock --unused", "format", "test"],
+      test: ["ash.setup --quiet", "test"]
     ]
   end
 end
