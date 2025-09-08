@@ -1,6 +1,15 @@
 import Config
 
-config :hachiware, Hachiware.Repo,
+config :hachiware, Hachiware.Reports.Repo,
+  hostname: "localhost",
+  username: "postgres",
+  password: "postgres",
+  database: "postgres",
+  port: 5432,
+  show_sensitive_data_on_connection_error: true,
+  pool_size: 10
+
+config :hachiware, Hachiware.Steampipe.Repo,
   hostname: "localhost",
   username: "steampipe",
   password: "password",

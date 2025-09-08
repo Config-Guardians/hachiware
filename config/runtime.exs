@@ -59,7 +59,7 @@ if config_env() == :prod do
       For example: ecto://USER:PASS@HOST/DATABASE
       """
 
-  config :hachiware, Hachiware.Repo,
+  config :hachiware, Hachiware.Reports.Repo,
     url: database_url,
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 

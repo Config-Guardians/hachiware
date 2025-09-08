@@ -1,5 +1,6 @@
 # Notes
 Postgres must be installed as per [AshPostgres documentation](https://hexdocs.pm/ash_postgres/get-started-with-ash-postgres.html)
+Make sure to run `mix ash.setup` before starting the server to setup the database
 # Hachiware
 
 To start your Phoenix server:

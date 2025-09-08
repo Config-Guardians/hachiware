@@ -1,4 +1,4 @@
-defmodule Hachiware.Repo do
+defmodule Hachiware.Reports.Repo do
   use AshPostgres.Repo, otp_app: :hachiware
 
   def min_pg_version do

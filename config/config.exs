@@ -7,7 +7,7 @@
 # General application configuration
 import Config
 
-config :hachiware, :ash_domains, [Hachiware.Providers.Github, Hachiware.External]
+config :hachiware, :ash_domains, [Hachiware.Providers.Github, Hachiware.Reports]
 
 config :mime,
   extensions: %{"json" => "application/vnd.api+json"},
@@ -56,7 +56,9 @@ config :spark,
     ]
   ]
 
-config :hachiware, generators: [timestamp_type: :utc_datetime], ecto_repos: [Hachiware.Repo]
+config :hachiware,
+  generators: [timestamp_type: :utc_datetime],
+  ecto_repos: [Hachiware.Reports.Repo]#, Hachiware.Steampipe.Repo]
 
 # Configures the endpoint
 config :hachiware, HachiwareWeb.Endpoint,
