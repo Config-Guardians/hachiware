@@ -1,4 +1,4 @@
-defmodule Hachiware.Providers.Github.GithubUser do
+defmodule Hachiware.Providers.Github.User do
   use Ash.Resource,
     domain: Hachiware.Providers.Github,
     data_layer: AshPostgres.DataLayer,
@@ -13,7 +13,6 @@ defmodule Hachiware.Providers.Github.GithubUser do
 
     attribute :name, :string do
       public? true
-      allow_nil? false
     end
 
     attribute :id, :integer do
@@ -39,12 +38,6 @@ defmodule Hachiware.Providers.Github.GithubUser do
 
   json_api do
     type "user"
-
-    routes do
-      base "/github/user"
-
-      get :read, name: "Github username", route: "/:login"
-    end
   end
 
   postgres do

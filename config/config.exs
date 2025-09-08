@@ -7,7 +7,7 @@
 # General application configuration
 import Config
 
-config :hachiware, :ash_domains, [Hachiware.Providers.Github]
+config :hachiware, :ash_domains, [Hachiware.Providers.Github, Hachiware.External]
 
 config :mime,
   extensions: %{"json" => "application/vnd.api+json"},

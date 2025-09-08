@@ -7,6 +7,8 @@ import Config
 # any compile-time configuration in here, as it won't be applied.
 # The block below contains prod specific runtime configuration.
 
+config :hachiware, Hachiware.External.SteampipeWrapper, System.get_env("SIDECAR_HOST")
+
 # ## Using releases
 #
 # If you use `mix release`, you need to explicitly enable the server
