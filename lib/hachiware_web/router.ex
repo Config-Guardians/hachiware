@@ -18,4 +18,15 @@ defmodule HachiwareWeb.Router do
   scope "/api", HachiwareWeb do
     pipe_through :api
   end
+
+  pipeline :sse do
+    plug :put_format, "text/event-stream"
+    plug :fetch_session
+  end
+
+  scope "/sse", HachiwareWeb do
+    pipe_through :sse
+
+    get "/", SseController, :subscribe
+  end
 end

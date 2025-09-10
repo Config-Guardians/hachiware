@@ -7,11 +7,11 @@
 # General application configuration
 import Config
 
-config :hachiware, :ash_domains, [Hachiware.Providers.Github, Hachiware.Reports]
+config :hachiware, :ash_domains, [Hachiware.Providers.Github, Hachiware.Reports, Hachiware.Sse]
 
 config :mime,
   extensions: %{"json" => "application/vnd.api+json"},
-  types: %{"application/vnd.api+json" => ["json"]}
+  types: %{"application/vnd.api+json" => ["json"], "text/event-stream" => ["sse"]}
 
 config :ash_json_api,
   show_public_calculations_when_loaded?: false,
@@ -58,7 +58,8 @@ config :spark,
 
 config :hachiware,
   generators: [timestamp_type: :utc_datetime],
-  ecto_repos: [Hachiware.Reports.Repo]#, Hachiware.Steampipe.Repo]
+  # , Hachiware.Steampipe.Repo]
+  ecto_repos: [Hachiware.Reports.Repo]
 
 # Configures the endpoint
 config :hachiware, HachiwareWeb.Endpoint,
