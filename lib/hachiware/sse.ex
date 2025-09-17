@@ -5,7 +5,11 @@ defmodule Hachiware.Sse do
   json_api do
     routes do
       base_route "/sse" do
-        route Hachiware.Sse.Connection, :get, "/connect", :broadcast
+        route Hachiware.Sse.Connection, :get, "/connect", :broadcast do
+          name "Ping SSE connection"
+
+          description "Sending a request to this path will send an SSE message from the server to any connected clients"
+        end
       end
     end
   end
