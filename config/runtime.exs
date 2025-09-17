@@ -63,6 +63,17 @@ if config_env() == :prod do
     url: database_url,
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
+  steampipe_database_url =
+    System.get_env("STEAMPIPE_DATABASE_URL") ||
+      raise """
+      environment variable STEAMPIPE_DATABASE_URL is missing.
+      For example: ecto://USER:PASS@HOST/DATABASE
+      """
+
+  config :hachiware, Hachiware.Steampipe.Repo,
+    url: steampipe_database_url,
+    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
+
   # ## SSL Support
   #
   # To get SSL working, you will need to add the `https` key

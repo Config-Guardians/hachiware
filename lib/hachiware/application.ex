@@ -11,7 +11,7 @@ defmodule Hachiware.Application do
       HachiwareWeb.Telemetry,
       {DNSCluster, query: Application.get_env(:hachiware, :dns_cluster_query) || :ignore},
       Hachiware.Reports.Repo,
-      # Hachiware.Steampipe.Repo,
+      Hachiware.Steampipe.Repo,
       {Phoenix.PubSub, name: Hachiware.PubSub},
       # Start a worker by calling: Hachiware.Worker.start_link(arg)
       # {Hachiware.Worker, arg},
