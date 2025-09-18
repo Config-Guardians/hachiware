@@ -9,8 +9,8 @@ import Config
 
 config :hachiware, :ash_domains, [Hachiware.Providers.Github, Hachiware.Reports, Hachiware.Sse]
 
-# # from_clock tuple in the form {hour, minute, second, microsecond}
 config :hachiware, Hachiware.Poller, {0, 0, 5, 0}
+# from_clock tuple in the form {hour, minute, second, microsecond}
 
 config :mime,
   extensions: %{"json" => "application/vnd.api+json"},

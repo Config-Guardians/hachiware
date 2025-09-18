@@ -1,4 +1,4 @@
-defmodule Hachiware.Poller do
+defmodule Hachiware.Poller.Server do
   use GenServer
 
   @timeout Application.compile_env(:hachiware, Hachiware.Poller)
@@ -15,7 +15,8 @@ defmodule Hachiware.Poller do
   end
 
   def handle_info(:timeout, _) do
-    IO.puts("OK")
+    IO.puts("Starting task from Poller.Server")
+    Task.Supervisor.start_child(Hachiware.Poller, Hachiware.Poller.Runner, :run, [])
     {:noreply, nil, @timeout}
   end
 end

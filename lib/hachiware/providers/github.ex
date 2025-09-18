@@ -14,9 +14,13 @@ defmodule Hachiware.Providers.Github do
 
   resources do
     resource Hachiware.Providers.Github.User
+
+    resource Hachiware.Providers.Github.RepositoryContent do
+      define :read_repo, args: [:repository_full_name], action: :read
+    end
   end
 
   domain do
-    description "Resources related to AWS cloud provider"
+    description "Resources related to Github cloud provider"
   end
 end
