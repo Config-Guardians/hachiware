@@ -16,7 +16,8 @@ defmodule Hachiware.Application do
       # Start a worker by calling: Hachiware.Worker.start_link(arg)
       # {Hachiware.Worker, arg},
       # Start to serve requests, typically the last entry
-      HachiwareWeb.Endpoint
+      HachiwareWeb.Endpoint,
+      Hachiware.Poller
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
