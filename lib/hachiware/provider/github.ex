@@ -4,6 +4,9 @@ defmodule Hachiware.Provider.Github do
 
   @behaviour Hachiware.Provider
 
+  @impl true
+  def watched_resources, do: [Hachiware.Provider.Github.RepositoryContent]
+
   json_api do
     routes do
       base_route "/github/user", Hachiware.Provider.Github.User do
