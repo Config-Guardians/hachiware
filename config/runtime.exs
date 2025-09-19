@@ -7,6 +7,9 @@ import Config
 # any compile-time configuration in here, as it won't be applied.
 # The block below contains prod specific runtime configuration.
 
+# tuple in the form {hour, minute, second, microsecond}
+config :hachiware, Hachiware.Poller, {0, 0, 5, 0}
+
 config :hachiware, Hachiware.External.SteampipeWrapper, System.get_env("SIDECAR_HOST")
 
 # ## Using releases
