@@ -1,10 +1,12 @@
-defmodule Hachiware.Providers.Github do
+defmodule Hachiware.Provider.Github do
   use Ash.Domain,
     extensions: [AshJsonApi.Domain]
 
+  @behaviour Hachiware.Provider
+
   json_api do
     routes do
-      base_route "/github/user", Hachiware.Providers.Github.User do
+      base_route "/github/user", Hachiware.Provider.Github.User do
         get :read,
           name: "Github username",
           route: "/:login"
@@ -13,9 +15,9 @@ defmodule Hachiware.Providers.Github do
   end
 
   resources do
-    resource Hachiware.Providers.Github.User
+    resource Hachiware.Provider.Github.User
 
-    resource Hachiware.Providers.Github.RepositoryContent do
+    resource Hachiware.Provider.Github.RepositoryContent do
       define :read_repo, args: [:repository_full_name], action: :read
     end
   end

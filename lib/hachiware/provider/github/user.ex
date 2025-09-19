@@ -1,6 +1,6 @@
-defmodule Hachiware.Providers.Github.User do
+defmodule Hachiware.Provider.Github.User do
   use Ash.Resource,
-    domain: Hachiware.Providers.Github,
+    domain: Hachiware.Provider.Github,
     data_layer: AshPostgres.DataLayer,
     extensions: [AshJsonApi.Resource]
 
@@ -26,7 +26,7 @@ defmodule Hachiware.Providers.Github.User do
     attribute :location, :string do
       public? true
     end
-    
+
     attribute :url, :string do
       public? true
     end

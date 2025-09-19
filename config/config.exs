@@ -7,7 +7,7 @@
 # General application configuration
 import Config
 
-config :hachiware, :ash_domains, [Hachiware.Providers.Github, Hachiware.Reports, Hachiware.Sse]
+config :hachiware, :ash_domains, [Hachiware.Provider.Github, Hachiware.Reports, Hachiware.Sse]
 
 config :hachiware, Hachiware.Poller, {0, 0, 5, 0}
 # from_clock tuple in the form {hour, minute, second, microsecond}

@@ -1,6 +1,6 @@
-defmodule Hachiware.Providers.Github.RepositoryContent do
+defmodule Hachiware.Provider.Github.RepositoryContent do
   use Ash.Resource,
-    domain: Hachiware.Providers.Github,
+    domain: Hachiware.Provider.Github,
     data_layer: AshPostgres.DataLayer,
     extensions: [AshJsonApi.Resource]
 
