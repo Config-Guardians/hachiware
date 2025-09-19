@@ -8,6 +8,7 @@ defmodule Hachiware.Provider.Github.RepositoryContent do
     attribute :commit_url, :string do
       primary_key? true
       allow_nil? false
+      select_by_default? false
     end
 
     attribute :path, :string do
@@ -42,5 +43,9 @@ defmodule Hachiware.Provider.Github.RepositoryContent do
     schema "github"
 
     repo Hachiware.Steampipe.Repo
+  end
+
+  code_interface do
+    define :read_repo, args: [:repository_full_name], action: :read
   end
 end

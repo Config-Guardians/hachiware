@@ -19,10 +19,7 @@ defmodule Hachiware.Provider.Github do
 
   resources do
     resource Hachiware.Provider.Github.User
-
-    resource Hachiware.Provider.Github.RepositoryContent do
-      define :read_repo, args: [:repository_full_name], action: :read
-    end
+    resource Hachiware.Provider.Github.RepositoryContent
   end
 
   domain do
