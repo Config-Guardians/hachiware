@@ -4,6 +4,7 @@ ENV PHX_SERVER=true MIX_ENV=prod
 
 COPY ./mix.* .
 COPY ./config/config.exs ./config/
+COPY ./config/prod.exs ./config/
 RUN mix deps.get
 RUN mix compile
 
