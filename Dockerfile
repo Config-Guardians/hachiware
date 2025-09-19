@@ -3,7 +3,7 @@ WORKDIR /app
 ENV PHX_SERVER=true MIX_ENV=prod
 
 COPY ./mix.* .
-COPY ./config .
+COPY ./config/config.exs ./config/
 RUN mix deps.get
 RUN mix compile
 
