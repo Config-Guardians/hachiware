@@ -48,4 +48,8 @@ defmodule Hachiware.Provider.Github.RepositoryContent do
   code_interface do
     define :read_repo, args: [:repository_full_name], action: :read
   end
+
+  @behaviour Hachiware.Provider.WatchedResource
+  def diff_attribute(%{content: content}), do: content
+  def entry_id(%{path: path}), do: path
 end

@@ -7,7 +7,7 @@ defmodule Hachiware.Poller.Runner do
     |> Stream.map(fn x ->
       Stream.map(
         [:diff_attribute, :entry_id],
-        &{&1, apply(Module.concat(watched_resource, :Selector), &1, [x])}
+        &{&1, apply(watched_resource, &1, [x])}
       )
       |> Map.new()
     end)
