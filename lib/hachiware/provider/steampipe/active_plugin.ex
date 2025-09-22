@@ -1,17 +1,17 @@
-defmodule Hachiware.Provider.Steampipe.Resource do
+defmodule Hachiware.Provider.Steampipe.ActivePlugin do
   use Ash.Resource,
     domain: Hachiware.Provider.Steampipe,
+    data_layer: Ash.DataLayer.Ets,
     extensions: [AshJsonApi.Resource]
 
   attributes do
-    # attribute :message, :string do
-    #   allow_nil? false
-    #   public? true
-    # end
+    attribute :provider, :atom do
+      primary_key? true
+      allow_nil? false
 
-    # attribute :configuration, :string do
-    #   allow_nil? false
-    # end
+      constraints one_of: [:Aws, :Github]
+      public? true
+    end
   end
 
   actions do
@@ -20,7 +20,13 @@ defmodule Hachiware.Provider.Steampipe.Resource do
     action :install, :map do
       argument :plugin, :string, allow_nil?: false
       argument :configuration, :string, allow_nil?: false
-      run Hachiware.External.SteampipeWrapper
+      validate present([:plugin, :configuration])
+
+      run Hachiware.Provider.Steampipe.SteampipeWrapper
+#
+# prepare after_action(fn input, _result, _ctx -> 
+#         Ash
+#       end)
     end
   end
 

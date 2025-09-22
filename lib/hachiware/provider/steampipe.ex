@@ -3,6 +3,6 @@ defmodule Hachiware.Provider.Steampipe do
     extensions: [AshJsonApi.Domain]
 
   resources do
-    resource Hachiware.Provider.Steampipe.Resource
+    resource Hachiware.Provider.Steampipe.ActivePlugin
   end
 end

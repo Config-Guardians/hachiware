@@ -44,6 +44,6 @@ defmodule Hachiware.Provider.Github.User do
     table "github_user"
     schema "github"
 
-    repo Hachiware.Steampipe.Repo
+    repo Hachiware.Provider.Steampipe.Repo
   end
 end

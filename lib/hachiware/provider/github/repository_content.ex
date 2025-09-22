@@ -35,7 +35,10 @@ defmodule Hachiware.Provider.Github.RepositoryContent do
       end
 
       filter expr(repository_full_name == ^arg(:repository_full_name))
-      filter expr( contains(path, "application.properties"))
+      filter expr(contains(path, "application.properties"))
+      #filter(expr do
+      #  __MODULE__.Macro.contains_list(["application.properties"], path, :contains)
+      #end)
     end
   end
 
@@ -43,7 +46,7 @@ defmodule Hachiware.Provider.Github.RepositoryContent do
     table "github_repository_content"
     schema "github"
 
-    repo Hachiware.Steampipe.Repo
+    repo Hachiware.Provider.Steampipe.Repo
   end
 
   code_interface do

@@ -10,7 +10,7 @@ import Config
 # tuple in the form {hour, minute, second, microsecond}
 config :hachiware, Hachiware.Poller, {0, 0, 15, 0}
 
-config :hachiware, Hachiware.External.SteampipeWrapper, System.get_env("SIDECAR_HOST")
+config :hachiware, Hachiware.Provider.Steampipe.SteampipeWrapper, System.get_env("SIDECAR_HOST")
 
 # ## Using releases
 #
@@ -73,7 +73,7 @@ if config_env() == :prod do
       For example: ecto://USER:PASS@HOST/DATABASE
       """
 
-  config :hachiware, Hachiware.Steampipe.Repo,
+  config :hachiware, Hachiware.Provider.Steampipe.Repo,
     url: steampipe_database_url,
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 

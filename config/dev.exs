@@ -9,7 +9,7 @@ config :hachiware, Hachiware.Reports.Repo,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
-config :hachiware, Hachiware.Steampipe.Repo,
+config :hachiware, Hachiware.Provider.Steampipe.Repo,
   hostname: "localhost",
   username: "steampipe",
   password: "password",
