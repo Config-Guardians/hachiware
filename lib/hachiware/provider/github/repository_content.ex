@@ -35,6 +35,9 @@ defmodule Hachiware.Provider.Github.RepositoryContent do
       end
 
       filter expr(repository_full_name == ^arg(:repository_full_name))
+      filter expr(
+          contains(path, "application.properties")
+      )
     end
   end
 
