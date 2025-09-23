@@ -15,7 +15,7 @@ defmodule Hachiware.Provider.Steampipe.ActivePlugin do
   end
 
   actions do
-    defaults [:read, :destroy, create: :*, update: :*]
+    defaults [:read, create: :*]
 
     action :install, :map do
       argument :plugin, :string, allow_nil?: false
@@ -24,10 +24,9 @@ defmodule Hachiware.Provider.Steampipe.ActivePlugin do
 
       run Hachiware.Provider.Steampipe.SteampipeWrapper
 
-      prepare after_action(fn %Ash.ActionInput{arguments: %{plugin: plugin}}, map, ctx -> 
+      prepare after_action(fn %Ash.ActionInput{arguments: %{plugin: plugin}}, map, _ctx -> 
         (Map.get(map, "exitCode") == 0)
         |> if do
-          IO.puts("Running Ash.create!")
           Ash.Changeset.for_create(__MODULE__, :create, %{provider: plugin |> String.capitalize |> String.to_atom })
           |> Ash.create!()
         end
