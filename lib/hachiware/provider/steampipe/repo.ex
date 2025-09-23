@@ -1,6 +1,9 @@
 defmodule Hachiware.Provider.Steampipe.Repo do
   use AshPostgres.Repo, otp_app: :hachiware
 
+  def create?, do: false
+  def create_schemas_in_migrations?, do: false
+
   def min_pg_version do
     %Version{major: 17, minor: 6, patch: 0}
   end
