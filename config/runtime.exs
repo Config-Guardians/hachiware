@@ -10,7 +10,10 @@ import Config
 # tuple in the form {hour, minute, second, microsecond}
 config :hachiware, Hachiware.Poller, {0, 0, 15, 0}
 
-config :hachiware, Hachiware.Provider.Steampipe.SteampipeWrapper, System.get_env("SIDECAR_HOST")
+config :hachiware,
+       Hachiware.Provider.Steampipe.SteampipeWrapper,
+       System.get_env("SIDECAR_HOST") ||
+         raise("SIDECAR_HOST not set, hachiware will not be able to install plugins!!")
 
 # ## Using releases
 #

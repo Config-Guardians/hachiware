@@ -1,7 +1,7 @@
 import Config
 
 config :hachiware, Hachiware.Reports.Repo,
-  hostname: "localhost",
+  hostname: "hachiware-db",
   username: "postgres",
   password: "postgres",
   database: "postgres",
@@ -10,7 +10,7 @@ config :hachiware, Hachiware.Reports.Repo,
   pool_size: 10
 
 config :hachiware, Hachiware.Provider.Steampipe.Repo,
-  hostname: "localhost",
+  hostname: "steampipe",
   username: "steampipe",
   password: "password",
   database: "steampipe",

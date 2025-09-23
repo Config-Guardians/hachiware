@@ -23,10 +23,16 @@ defmodule Hachiware.Provider.Steampipe.ActivePlugin do
       validate present([:plugin, :configuration])
 
       run Hachiware.Provider.Steampipe.SteampipeWrapper
-#
-# prepare after_action(fn input, _result, _ctx -> 
-#         Ash
-#       end)
+
+      prepare after_action(fn %Ash.ActionInput{arguments: %{plugin: plugin}}, map, ctx -> 
+        (Map.get(map, "exitCode") == 0)
+        |> if do
+          IO.puts("Running Ash.create!")
+          Ash.Changeset.for_create(__MODULE__, :create, %{provider: plugin |> String.capitalize |> String.to_atom })
+          |> Ash.create!()
+        end
+          {:ok, map}
+      end)
     end
   end
 
@@ -40,6 +46,7 @@ defmodule Hachiware.Provider.Steampipe.ActivePlugin do
       base "/plugin"
 
       route :post, "/", :install
+      index :read
     end
   end
 end
