@@ -3,6 +3,6 @@ defmodule HachiwareWeb.SseController do
   use HachiwareWeb, :controller
 
   def subscribe(conn, _) do
-    SsePhoenixPubsub.stream(conn, {Hachiware.PubSub, ["Darling:HoldMyHand"]})
+    SsePhoenixPubsub.stream(conn, {Hachiware.PubSub, ["diff"]})
   end
 end

@@ -10,7 +10,7 @@ import Config
 config :hachiware, :ash_domains, [
   Hachiware.Provider.Github,
   Hachiware.Reports,
-  Hachiware.Sse,
+  # Hachiware.Sse,
   Hachiware.Provider.Steampipe
 ]
 
