@@ -5,7 +5,7 @@ defmodule Hachiware.Provider.Github do
   @behaviour Hachiware.Provider
 
   @impl true
-  def watched_resources, do: [Hachiware.Provider.Github.RepositoryContent]
+  def watched_resources, do: [Hachiware.Provider.Github.MyRepository]
 
   json_api do
     routes do
@@ -20,6 +20,7 @@ defmodule Hachiware.Provider.Github do
   resources do
     resource Hachiware.Provider.Github.User
     resource Hachiware.Provider.Github.RepositoryContent
+    resource Hachiware.Provider.Github.MyRepository
   end
 
   domain do

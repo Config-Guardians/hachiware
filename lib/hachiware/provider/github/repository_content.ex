@@ -1,8 +1,7 @@
 defmodule Hachiware.Provider.Github.RepositoryContent do
   use Ash.Resource,
     domain: Hachiware.Provider.Github,
-    data_layer: AshPostgres.DataLayer,
-    extensions: [AshJsonApi.Resource]
+    data_layer: AshPostgres.DataLayer
 
   attributes do
     attribute :commit_url, :string do
@@ -33,6 +32,7 @@ defmodule Hachiware.Provider.Github.RepositoryContent do
         constraints match: ~r/^[a-zA-Z0-9-]+\/[a-zA-Z0-9-.]+$/
         allow_nil? false
       end
+      primary? true
 
       filter expr(repository_full_name == ^arg(:repository_full_name))
       filter expr(contains(path, "application.properties"))
@@ -49,11 +49,7 @@ defmodule Hachiware.Provider.Github.RepositoryContent do
     repo Hachiware.Provider.Steampipe.Repo
   end
 
-  code_interface do
-    define :read_repo, args: [:repository_full_name], action: :read
-  end
-
   @behaviour Hachiware.Provider.WatchedResource
   def diff_attribute(%{content: content}), do: content
-  def entry_id(%{path: path}), do: path
+  def entry_id(%{repository_full_name: repo, path: path}), do: {repo, path}
 end
