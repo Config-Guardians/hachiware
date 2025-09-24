@@ -17,6 +17,7 @@ defmodule Hachiware.Application do
       # {Hachiware.Worker, arg},
       # Start to serve requests, typically the last entry
       HachiwareWeb.Endpoint,
+      Hachiware.Poller.Storage,
       Hachiware.Poller.Server,
       {Task.Supervisor, name: Hachiware.Poller}
     ]
