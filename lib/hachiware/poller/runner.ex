@@ -3,16 +3,13 @@ defmodule Hachiware.Poller.Runner do
 
   @spec run(atom()) :: nil
   def run(watched_resource) do
-    # watched_resource.retrieve_records.()
     current_map =
       watched_resource
       |> apply(:retrieve_records, [])
       |> Stream.map(
         &{
-          # watched_resource.entry_id.(&1)
           apply(watched_resource, :entry_id, [&1]),
           {apply(watched_resource, :diff_attribute, [&1]), &1}
-          # {watched_resource.diff_attribute.(&1), &1}
         }
       )
       |> Map.new()
@@ -20,19 +17,23 @@ defmodule Hachiware.Poller.Runner do
     stored_map = Hachiware.Poller.Storage.get_stored(watched_resource)
 
     diff =
-      Map.reject(current_map, fn {k, v} ->
+      Map.reject(current_map, fn {k, {v, _}} ->
         Map.has_key?(stored_map, k) && Map.get(stored_map, k) == v
       end)
 
     if diff !== %{} do
       merged =
-        Map.merge(stored_map, diff, fn _, _, v ->
-          v
-        end)
+        Map.merge(stored_map, diff, fn _, _, {v, _} -> v end)
+
+      Hachiware.Sse.ConnectionImplementation.send(%Hachiware.Sse.ConnectionImplementation{
+        type: apply(watched_resource, :module_name, []),
+        data:
+          Enum.map(diff, fn {_, {_, m}} ->
+            Map.drop(m, [:__struct__, :__meta__])
+          end)
+      })
 
       Hachiware.Poller.Storage.set_stored(watched_resource, merged)
-
-      Hachiware.Sse.ConnectionImplementation.send(diff)
     end
 
     # IO.puts("Runner.run called")

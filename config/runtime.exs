@@ -8,7 +8,7 @@ import Config
 # The block below contains prod specific runtime configuration.
 
 # tuple in the form {hour, minute, second, microsecond}
-config :hachiware, Hachiware.Poller, {0, 0, 20, 0}
+config :hachiware, Hachiware.Poller, {0, 0, 30, 0}
 
 config :hachiware,
        Hachiware.Provider.Steampipe.SteampipeWrapper,

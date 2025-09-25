@@ -30,9 +30,7 @@ defmodule Hachiware.Provider.Github.MyRepository do
   @impl Hachiware.Provider.WatchedResource
   def entry_id(struct), do: Hachiware.Provider.Github.RepositoryContent.entry_id(struct)
 
-  @behaviour Hachiware.Provider.RetrieveResource
-
-  @impl Hachiware.Provider.RetrieveResource
+  @impl Hachiware.Provider.WatchedResource
   def retrieve_records do
     __MODULE__
     |> Ash.read!()
@@ -43,4 +41,7 @@ defmodule Hachiware.Provider.Github.MyRepository do
       |> Ash.read!()
     ))
   end
+
+  @impl Hachiware.Provider.WatchedResource
+  def module_name, do: "github_files"
 end

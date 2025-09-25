@@ -49,7 +49,6 @@ defmodule Hachiware.Provider.Github.RepositoryContent do
     repo Hachiware.Provider.Steampipe.Repo
   end
 
-  @behaviour Hachiware.Provider.WatchedResource
   def diff_attribute(%{content: content}), do: content
   def entry_id(%{repository_full_name: repo, path: path}), do: {repo, path}
 end
