@@ -9,8 +9,8 @@ import Config
 
 config :hachiware, :ash_domains, [
   Hachiware.Provider.Github,
+  Hachiware.Provider.Aws,
   Hachiware.Reports,
-  # Hachiware.Sse,
   Hachiware.Provider.Steampipe
 ]
 
