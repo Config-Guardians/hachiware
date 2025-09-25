@@ -1,7 +1,8 @@
 defmodule Hachiware.Provider.Github.RepositoryContent do
   use Ash.Resource,
     domain: Hachiware.Provider.Github,
-    data_layer: AshPostgres.DataLayer
+    data_layer: AshPostgres.DataLayer,
+  primary_read_warning?: false
 
   attributes do
     attribute :commit_url, :string do

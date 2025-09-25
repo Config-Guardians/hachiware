@@ -1,3 +1,4 @@
+.dockerignore
 .elixir_ls
 .git
 _build
@@ -5,3 +6,4 @@ deps
 erl_crash.dump
 Dockerfile
 docker-compose.yaml
+*.py

@@ -9,6 +9,10 @@ defmodule Hachiware.Provider.Github.MyRepository do
       allow_nil? false
       public? true
     end
+
+    attribute :login_id, :string do
+      public? true
+    end
   end
 
   actions do

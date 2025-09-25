@@ -8,7 +8,7 @@ defmodule Hachiware.Sse.ConnectionImplementation do
     Phoenix.PubSub.broadcast(
       Hachiware.PubSub,
       "diff",
-      {Hachiware.PubSub, Jason.encode!(message)}
+      {Hachiware.PubSub, Jason.encode!(Map.from_struct(message))}
     )
   end
 end
