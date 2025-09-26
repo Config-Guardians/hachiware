@@ -23,7 +23,12 @@ defmodule Hachiware.Poller.Runner do
 
     if diff !== %{} do
       merged =
-        Map.merge(stored_map, diff, fn _, _, {v, _} -> v end)
+        Map.merge(
+          stored_map,
+          diff
+          |> Stream.map(fn {k, {v, _}} -> {k, v} end)
+          |> Map.new()
+        )
 
       Hachiware.Sse.ConnectionImplementation.send(%Hachiware.Sse.ConnectionImplementation{
         type: apply(watched_resource, :module_name, []),
@@ -35,7 +40,5 @@ defmodule Hachiware.Poller.Runner do
 
       Hachiware.Poller.Storage.set_stored(watched_resource, merged)
     end
-
-    # IO.puts("Runner.run called")
   end
 end
