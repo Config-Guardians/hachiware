@@ -74,16 +74,10 @@ defmodule Hachiware.Reports.Report do
                     original_file_validation: [type: :string],
                     patched_file_validation: [type: :string],
                     original_tests_summary: [
-                      type: :struct,
-                      constraints: [
-                        instance_of: Hachiware.Reports.TestSummary
-                      ]
+                      type: Hachiware.Reports.TestSummary
                     ],
                     patched_tests_summary: [
-                      type: :struct,
-                      constraints: [
-                        instance_of: Hachiware.Reports.TestSummary
-                      ]
+                      type: Hachiware.Reports.TestSummary
                     ],
                     policy_details: [
                       type: :map,
