@@ -5,7 +5,14 @@ defmodule Hachiware.Provider.Github do
   @behaviour Hachiware.Provider
 
   @impl true
-  def watched_resources, do: [Hachiware.Provider.Github.MyRepository]
+  def watched_resources,
+    do:
+      Enum.map(
+        [
+          :MyRepository
+        ],
+        &Module.concat(__MODULE__, &1)
+      )
 
   resources do
     resource __MODULE__.RepositoryContent
