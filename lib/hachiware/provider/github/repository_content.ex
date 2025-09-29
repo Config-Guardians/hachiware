@@ -36,7 +36,7 @@ defmodule Hachiware.Provider.Github.RepositoryContent do
       primary? true
 
       filter expr(repository_full_name == ^arg(:repository_full_name))
-      filter expr(contains(path, "application.properties"))
+      filter expr(contains(path, ".properties" or contains(path, ".tf")))
       #filter(expr do
       #  __MODULE__.Macro.contains_list(["application.properties"], path, :contains)
       #end)
