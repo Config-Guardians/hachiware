@@ -30,7 +30,7 @@ defmodule Hachiware.Provider.Github.RepositoryContent do
   actions do
     read :read do
       argument :repository_full_name, :string do
-        constraints match: ~r/^[a-zA-Z0-9-]+\/[a-zA-Z0-9-.]+$/
+        constraints match: ~r/^[a-zA-Z0-9-_]+\/[a-zA-Z0-9-._]+$/
         allow_nil? false
       end
       primary? true
