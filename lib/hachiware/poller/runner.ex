@@ -17,6 +17,8 @@ defmodule Hachiware.Poller.Runner do
         entries = Map.get(stored_map, watched_resource, %{})
 
         if Map.get(entries, id) !== diff do
+          IO.inspect(diff)
+
           Hachiware.Sse.ConnectionImplementation.send(%Hachiware.Sse.ConnectionImplementation{
             type: apply(watched_resource, :module_name, []),
             data:
