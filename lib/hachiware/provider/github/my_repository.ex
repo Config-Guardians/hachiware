@@ -36,14 +36,17 @@ defmodule Hachiware.Provider.Github.MyRepository do
 
   @impl Hachiware.Provider.WatchedResource
   def retrieve_records do
-    __MODULE__
-    |> Ash.read!()
-    |> Stream.map(&Map.get(&1, :name_with_owner))
-    |> Stream.flat_map(&(
       Hachiware.Provider.Github.RepositoryContent
-      |> Ash.Query.for_read(:read, %{repository_full_name: &1})
+      |> Ash.Query.for_read(:read, %{repository_full_name: "Config-Guardians/sandbox-drift-generator"})
       |> Ash.read!()
-    ))
+    # __MODULE__
+    # |> Ash.read!()
+    # |> Stream.map(&Map.get(&1, :name_with_owner))
+    # |> Stream.flat_map(&(
+    #   Hachiware.Provider.Github.RepositoryContent
+    #   |> Ash.Query.for_read(:read, %{repository_full_name: &1})
+    #   |> Ash.read!()
+    # ))
   end
 
   @impl Hachiware.Provider.WatchedResource
