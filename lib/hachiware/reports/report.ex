@@ -84,8 +84,7 @@ defmodule Hachiware.Reports.Report do
                       constraints: [
                         fields: [
                           policy_file: [type: :string],
-                          specific_rule: [type: :string],
-                          required_value: [type: :string]
+                          specific_rules: [type: {:array, :string}]
                         ]
                       ]
                     ],
