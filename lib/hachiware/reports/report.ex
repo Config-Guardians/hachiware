@@ -33,7 +33,7 @@ defmodule Hachiware.Reports.Report do
       public? true
     end
 
-    attribute :policy_compliance, :struct do
+    attribute :policy_compliance, :map do
       constraints fields: [
                     violations_detected: [type: :integer, constraints: [min: 0]],
                     validation_status: [type: :string],
@@ -43,7 +43,7 @@ defmodule Hachiware.Reports.Report do
       public? true
     end
 
-    attribute :changes_summary, :struct do
+    attribute :changes_summary, :map do
       constraints fields: [
                     total_changes: [type: :integer, constraints: [min: 0]],
                     changes_detail: [
