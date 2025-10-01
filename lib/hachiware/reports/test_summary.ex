@@ -1,5 +1,6 @@
 defmodule Hachiware.Reports.TestSummary do
-  use Ash.TypedStruct
+  use Ash.TypedStruct,
+    extensions: [AshJason.TypedStruct]
 
   typed_struct do
     field :total_tests, :integer, constraints: [min: 0]

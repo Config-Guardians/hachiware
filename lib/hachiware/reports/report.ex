@@ -73,12 +73,8 @@ defmodule Hachiware.Reports.Report do
       constraints fields: [
                     original_file_validation: [type: :string],
                     patched_file_validation: [type: :string],
-                    original_tests_summary: [
-                      type: Hachiware.Reports.TestSummary
-                    ],
-                    patched_tests_summary: [
-                      type: Hachiware.Reports.TestSummary
-                    ]
+                    original_tests_summary: [type: Hachiware.Reports.TestSummary],
+                    patched_tests_summary: [type: Hachiware.Reports.TestSummary]
                   ]
 
       public? true
@@ -89,6 +85,7 @@ defmodule Hachiware.Reports.Report do
                     policy_file: [type: :string],
                     specific_rules: [type: {:array, :string}]
                   ]
+
       public? true
     end
 
@@ -98,6 +95,7 @@ defmodule Hachiware.Reports.Report do
                     remediation_end_time: [type: :string],
                     total_duration_seconds: [type: :float]
                   ]
+
       public? true
     end
   end

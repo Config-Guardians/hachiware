@@ -1,4 +1,4 @@
-defmodule Hachiware.Reports.Repo.Migrations.AddReports do
+defmodule Hachiware.Reports.Repo.Migrations.UpdatedSchema do
   @moduledoc """
   Updates resources based on their most recent snapshots.
 
@@ -15,9 +15,14 @@ defmodule Hachiware.Reports.Repo.Migrations.AddReports do
         primary_key: true
       )
 
-      add(:title, :text, null: false)
-      add(:report, :text, null: false)
-      add(:status, :text, default: "open")
+      add(:original_filename, :text, null: false)
+      add(:patched_content, :text, null: false)
+      add(:policy_compliance, :map)
+      add(:changes_summary, :map)
+      add(:violations_analysis, :map)
+      add(:validation_details, :map)
+      add(:policy_details, :map)
+      add(:timing, :map)
     end
   end
 
