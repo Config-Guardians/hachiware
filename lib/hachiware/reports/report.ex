@@ -78,28 +78,26 @@ defmodule Hachiware.Reports.Report do
                     ],
                     patched_tests_summary: [
                       type: Hachiware.Reports.TestSummary
-                    ],
-                    policy_details: [
-                      type: :map,
-                      constraints: [
-                        fields: [
-                          policy_file: [type: :string],
-                          specific_rules: [type: {:array, :string}]
-                        ]
-                      ]
-                    ],
-                    timing: [
-                      type: :map,
-                      constraints: [
-                        fields: [
-                          remediation_start_time: [type: :string],
-                          remediation_end_time: [type: :string],
-                          total_duration_seconds: [type: :float]
-                        ]
-                      ]
                     ]
                   ]
 
+      public? true
+    end
+
+    attribute :policy_details, :map do
+      constraints fields: [
+                    policy_file: [type: :string],
+                    specific_rules: [type: {:array, :string}]
+                  ]
+      public? true
+    end
+
+    attribute :timing, :map do
+      constraints fields: [
+                    remediation_start_time: [type: :string],
+                    remediation_end_time: [type: :string],
+                    total_duration_seconds: [type: :float]
+                  ]
       public? true
     end
   end
