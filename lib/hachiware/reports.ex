@@ -6,6 +6,9 @@ defmodule Hachiware.Reports do
     routes do
       base_route "/report", Hachiware.Reports.Report do
         index :read
+
+        get :read, route: "/:created_at"
+
         post :create
       end
     end
