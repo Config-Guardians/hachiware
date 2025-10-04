@@ -9,6 +9,7 @@ COPY ./config/dev.exs ./config/
 COPY ./config/prod.exs ./config/
 RUN mix deps.get
 RUN mix compile
+RUN apk add curl
 
 COPY . .
 RUN mix compile
