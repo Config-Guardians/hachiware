@@ -33,7 +33,7 @@ defmodule Hachiware.Reports.Report do
       public? true
     end
 
-    attribute :policy_compliance, :struct do
+    attribute :policy_compliance, :map do
       constraints fields: [
                     violations_detected: [type: :integer, constraints: [min: 0]],
                     validation_status: [type: :string],
@@ -43,7 +43,7 @@ defmodule Hachiware.Reports.Report do
       public? true
     end
 
-    attribute :changes_summary, :struct do
+    attribute :changes_summary, :map do
       constraints fields: [
                     total_changes: [type: :integer, constraints: [min: 0]],
                     changes_detail: [
@@ -73,31 +73,27 @@ defmodule Hachiware.Reports.Report do
       constraints fields: [
                     original_file_validation: [type: :string],
                     patched_file_validation: [type: :string],
-                    original_tests_summary: [
-                      type: Hachiware.Reports.TestSummary
-                    ],
-                    patched_tests_summary: [
-                      type: Hachiware.Reports.TestSummary
-                    ],
-                    policy_details: [
-                      type: :map,
-                      constraints: [
-                        fields: [
-                          policy_file: [type: :string],
-                          specific_rules: [type: {:array, :string}]
-                        ]
-                      ]
-                    ],
-                    timing: [
-                      type: :map,
-                      constraints: [
-                        fields: [
-                          remediation_start_time: [type: :string],
-                          remediation_end_time: [type: :string],
-                          total_duration_seconds: [type: :float]
-                        ]
-                      ]
-                    ]
+                    original_tests_summary: [type: Hachiware.Reports.TestSummary],
+                    patched_tests_summary: [type: Hachiware.Reports.TestSummary]
+                  ]
+
+      public? true
+    end
+
+    attribute :policy_details, :map do
+      constraints fields: [
+                    policy_file: [type: :string],
+                    specific_rules: [type: {:array, :string}]
+                  ]
+
+      public? true
+    end
+
+    attribute :timing, :map do
+      constraints fields: [
+                    remediation_start_time: [type: :string],
+                    remediation_end_time: [type: :string],
+                    total_duration_seconds: [type: :float]
                   ]
 
       public? true
