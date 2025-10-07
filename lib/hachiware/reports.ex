@@ -8,6 +8,7 @@ defmodule Hachiware.Reports do
         index :read
 
         get :read, route: "/:created_at"
+        index :search, route: "/filter/:filter_value"
 
         post :create
       end

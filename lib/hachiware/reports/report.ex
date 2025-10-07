@@ -15,6 +15,19 @@ defmodule Hachiware.Reports.Report do
 
   actions do
     defaults [:read, create: :*, update: :*]
+
+    read :search do
+      argument :filter_value, :string do
+        allow_nil? false
+      end
+
+      pagination keyset?: true, offset?: true
+
+      filter expr(
+               contains(original_filename, ^arg(:filter_value)) or
+                 contains(patched_content, ^arg(:filter_value))
+             )
+    end
   end
 
   attributes do
