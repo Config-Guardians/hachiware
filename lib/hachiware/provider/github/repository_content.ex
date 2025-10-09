@@ -2,7 +2,7 @@ defmodule Hachiware.Provider.Github.RepositoryContent do
   use Ash.Resource,
     domain: Hachiware.Provider.Github,
     data_layer: AshPostgres.DataLayer,
-  primary_read_warning?: false
+    primary_read_warning?: false
 
   attributes do
     attribute :commit_url, :string do
@@ -37,9 +37,6 @@ defmodule Hachiware.Provider.Github.RepositoryContent do
 
       filter expr(repository_full_name == ^arg(:repository_full_name))
       filter expr(contains(path, ".properties") or contains(path, ".tf"))
-      #filter(expr do
-      #  __MODULE__.Macro.contains_list(["application.properties"], path, :contains)
-      #end)
     end
   end
 
