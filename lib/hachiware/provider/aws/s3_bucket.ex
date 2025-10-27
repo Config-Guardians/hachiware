@@ -4,7 +4,7 @@ defmodule Hachiware.Provider.Aws.S3Bucket do
     data_layer: AshPostgres.DataLayer
 
   @behaviour Hachiware.Provider.WatchedResource
-  def diff_attribute(%{acl: acl, policy: policy}) do 
+  def diff_attribute(%{acl: acl, policy: policy}) do
     # Remove all instances of DisplayName (it returns nil sometimes and owner other times)
     pop_in(acl, ["Owner", "DisplayName"])
     |> elem(1)
@@ -12,7 +12,6 @@ defmodule Hachiware.Provider.Aws.S3Bucket do
       Enum.map(x, &(pop_in(&1, ["Grantee", "DisplayName"]) |> elem(1)))
     end)
     |> then(&{&1, policy})
-    
   end
 
   def entry_id(%{arn: arn}), do: arn
@@ -23,6 +22,17 @@ defmodule Hachiware.Provider.Aws.S3Bucket do
     IO.puts("Scanning S3 buckets")
     __MODULE__
     |> Ash.read!()
+  end
+
+  postgres do
+    table "aws_s3_bucket"
+    schema "aws"
+
+    repo Hachiware.Provider.Steampipe.Repo
+  end
+
+  actions do
+    defaults [:read]
   end
 
   attributes do
@@ -38,16 +48,29 @@ defmodule Hachiware.Provider.Aws.S3Bucket do
     attribute :policy, :map do
       public? true
     end
-  end
 
-  postgres do
-    table "aws_s3_bucket"
-    schema "aws"
+    attribute :server_side_encryption_configuration, :map do
+      constraints fields: [
+                    Rules: [
+                      type: {:array, :map},
+                      constraints: [
+                        fields: [
+                          ApplyServerSideEncryptionByDefault: [
+                            type: :map,
+                            constraints: [
+                              fields: [
+                                KMSMasterKeyID: [type: :string],
+                                SSEAlgorithm: [type: :string]
+                              ]
+                            ]
+                          ],
+                          BucketKeyEnabled: [type: :boolean]
+                        ]
+                      ]
+                    ]
+                  ]
 
-    repo Hachiware.Provider.Steampipe.Repo
-  end
-
-  actions do
-    defaults [:read]
+      public? true
+    end
   end
 end
