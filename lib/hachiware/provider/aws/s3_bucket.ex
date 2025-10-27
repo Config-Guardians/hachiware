@@ -20,6 +20,7 @@ defmodule Hachiware.Provider.Aws.S3Bucket do
   def module_name, do: "aws_s3"
 
   def retrieve_records do
+    IO.puts("Scanning S3 buckets")
     __MODULE__
     |> Ash.read!()
   end

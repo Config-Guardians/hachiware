@@ -35,7 +35,15 @@ defmodule Hachiware.Provider.Aws.VpcSecurityGroupRule do
   def module_name, do: "aws_vpc_security_group_rule"
 
   def retrieve_records do
+    IO.puts("Scanning VPC SGs")
+
     __MODULE__
     |> Ash.read!()
+  end
+end
+
+defimpl Jason.Encoder, for: Postgrex.INET do
+  def encode(%Postgrex.INET{address: address, netmask: netmask}, opts) do
+    Jason.Encode.map(%{address: Tuple.to_list(address), netmask: netmask}, opts)
   end
 end
