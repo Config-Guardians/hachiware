@@ -17,7 +17,6 @@ defmodule Hachiware.Provider.Aws do
 
   resources do
     resource __MODULE__.S3Bucket
-    resource __MODULE__.Vpc
     resource __MODULE__.VpcSecurityGroupRule
     resource __MODULE__.VpcNetworkAcl
   end
