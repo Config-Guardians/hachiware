@@ -24,11 +24,35 @@ defmodule Hachiware.Provider.Aws.VpcSecurityGroupRule do
     attribute :cidr_ipv4, :map do
       public? true
     end
+
+    attribute :cidr_ipv6, :map do
+      public? true
+    end
+
+    attribute :from_port, :integer do
+      public? true
+    end
+
+    attribute :ip_protocol, :string do
+      public? true
+    end
+
+    attribute :is_egress, :boolean do
+      public? true
+    end
+
+    attribute :to_port, :integer do
+      public? true
+    end
+
+    attribute :type, :string do
+      public? true
+    end
   end
 
   @behaviour Hachiware.Provider.WatchedResource
 
-  def diff_attribute(%{cidr_ipv4: ipv4}), do: ipv4
+  def diff_attribute(map), do: map |> Map.from_struct() |> Map.delete(:security_group_rule_id)
 
   def entry_id(%{security_group_rule_id: id}), do: id
 

@@ -4,14 +4,18 @@ defmodule Hachiware.Provider.Aws.S3Bucket do
     data_layer: AshPostgres.DataLayer
 
   @behaviour Hachiware.Provider.WatchedResource
-  def diff_attribute(%{acl: acl, policy: policy}) do
+  def diff_attribute(%{
+        acl: acl,
+        policy: policy,
+        server_side_encryption_configuration: server_side_encryption_configuration
+      }) do
     # Remove all instances of DisplayName (it returns nil sometimes and owner other times)
     pop_in(acl, ["Owner", "DisplayName"])
     |> elem(1)
     |> update_in(["Grants"], fn x ->
       Enum.map(x, &(pop_in(&1, ["Grantee", "DisplayName"]) |> elem(1)))
     end)
-    |> then(&{&1, policy})
+    |> then(&{&1, policy, server_side_encryption_configuration})
   end
 
   def entry_id(%{arn: arn}), do: arn
@@ -20,6 +24,7 @@ defmodule Hachiware.Provider.Aws.S3Bucket do
 
   def retrieve_records do
     IO.puts("Scanning S3 buckets")
+
     __MODULE__
     |> Ash.read!()
   end
