@@ -9,7 +9,8 @@ defmodule Hachiware.Provider.Aws do
       Enum.map(
         [
           :S3Bucket,
-          :VpcSecurityGroupRule
+          :VpcSecurityGroupRule,
+          :VpcNetworkAcl
         ],
         &Module.concat(__MODULE__, &1)
       )
@@ -18,6 +19,7 @@ defmodule Hachiware.Provider.Aws do
     resource __MODULE__.S3Bucket
     resource __MODULE__.Vpc
     resource __MODULE__.VpcSecurityGroupRule
+    resource __MODULE__.VpcNetworkAcl
   end
 
   domain do
