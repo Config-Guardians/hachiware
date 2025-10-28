@@ -4,24 +4,11 @@ defmodule Hachiware.Provider.Aws.S3Bucket do
     data_layer: AshPostgres.DataLayer
 
   @behaviour Hachiware.Provider.WatchedResource
-  def diff_attribute(%{
-        acl: acl,
-        policy: policy,
-        server_side_encryption_configuration: server_side_encryption_configuration
-      }) do
-    # Remove all instances of DisplayName (it returns nil sometimes and owner other times)
-    pop_in(acl, ["Owner", "DisplayName"])
-    |> elem(1)
-    |> update_in(["Grants"], fn x ->
-      Enum.map(x, &(pop_in(&1, ["Grantee", "DisplayName"]) |> elem(1)))
-    end)
-    |> then(&{&1, policy, server_side_encryption_configuration})
-  end
 
-  def entry_id(%{arn: arn}), do: arn
-
+  @impl Hachiware.Provider.WatchedResource
   def module_name, do: "aws_s3"
 
+  @impl Hachiware.Provider.WatchedResource
   def retrieve_records do
     IO.puts("Scanning S3 buckets")
 
@@ -77,5 +64,23 @@ defmodule Hachiware.Provider.Aws.S3Bucket do
 
       public? true
     end
+  end
+end
+
+defimpl Hachiware.Poller.Runner.Diff, for: Hachiware.Provider.Aws.S3Bucket do
+  def entry_id(%Hachiware.Provider.Aws.S3Bucket{arn: arn}), do: arn
+
+  def diff_attribute(%Hachiware.Provider.Aws.S3Bucket{
+        acl: acl,
+        policy: policy,
+        server_side_encryption_configuration: server_side_encryption_configuration
+      }) do
+    # Remove all instances of DisplayName (it returns nil sometimes and owner other times)
+    pop_in(acl, ["Owner", "DisplayName"])
+    |> elem(1)
+    |> update_in(["Grants"], fn x ->
+      Enum.map(x, &(pop_in(&1, ["Grantee", "DisplayName"]) |> elem(1)))
+    end)
+    |> then(&{&1, policy, server_side_encryption_configuration})
   end
 end

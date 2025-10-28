@@ -7,8 +7,8 @@ defmodule Hachiware.Poller.Runner do
     |> apply(:retrieve_records, [])
     |> Stream.map(
       &{
-        apply(watched_resource, :entry_id, [&1]),
-        apply(watched_resource, :diff_attribute, [&1]),
+        __MODULE__.Diff.entry_id(&1),
+        __MODULE__.Diff.diff_attribute(&1),
         &1
       }
     )
