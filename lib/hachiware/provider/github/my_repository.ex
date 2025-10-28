@@ -33,6 +33,8 @@ defmodule Hachiware.Provider.Github.MyRepository do
 
   @impl Hachiware.Provider.WatchedResource
   def retrieve_records do
+    IO.puts("Scanning Github repository content")
+
     __MODULE__
     |> Ash.read!()
     |> Stream.map(&Map.get(&1, :name_with_owner))
