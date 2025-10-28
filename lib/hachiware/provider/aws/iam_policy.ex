@@ -11,7 +11,11 @@ defmodule Hachiware.Provider.Aws.IamPolicy do
   end
 
   actions do
-    defaults [:read]
+    read :read do
+      primary? true
+
+      filter expr(is_aws_managed == false)
+    end
   end
 
   attributes do
@@ -26,6 +30,10 @@ defmodule Hachiware.Provider.Aws.IamPolicy do
     end
 
     attribute :policy_std, :map do
+      public? true
+    end
+
+    attribute :is_aws_managed, :boolean do
       public? true
     end
   end
