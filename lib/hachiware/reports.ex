@@ -21,11 +21,14 @@ defmodule Hachiware.Reports do
 
         post :create
       end
+
+      route Hachiware.Reports.Search, :get, "/search/:filter_value", :search
     end
   end
 
   resources do
     resource Hachiware.Reports.Code
     resource Hachiware.Reports.Cloud
+    resource Hachiware.Reports.Search
   end
 end

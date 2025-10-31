@@ -21,8 +21,6 @@ defmodule Hachiware.Reports.Cloud do
         allow_nil? false
       end
 
-      pagination keyset?: true, offset?: true
-
       filter expr(contains(command, ^arg(:filter_value)))
     end
   end
@@ -39,3 +37,6 @@ defmodule Hachiware.Reports.Cloud do
     end
   end
 end
+
+require Protocol
+Protocol.derive(Jason.Encoder, Hachiware.Reports.Cloud, except: [:__meta__])

@@ -21,8 +21,6 @@ defmodule Hachiware.Reports.Code do
         allow_nil? false
       end
 
-      pagination keyset?: true, offset?: true
-
       filter expr(
                contains(original_filename, ^arg(:filter_value)) or
                  contains(patched_content, ^arg(:filter_value))
@@ -113,3 +111,6 @@ defmodule Hachiware.Reports.Code do
     end
   end
 end
+
+require Protocol
+Protocol.derive(Jason.Encoder, Hachiware.Reports.Code, except: [:__meta__])
