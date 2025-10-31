@@ -24,9 +24,21 @@ defmodule Hachiware.Reports.Repo.Migrations.UpdatedSchema do
       add(:policy_details, :map)
       add(:timing, :map)
     end
+
+    create table(:command, primary_key: false) do
+      add(:created_at, :utc_datetime_usec,
+        null: false,
+        default: fragment("(now() AT TIME ZONE 'utc')"),
+        primary_key: true
+      )
+
+      add(:command, :text, null: false)
+    end
   end
 
   def down do
+    drop(table(:command))
+
     drop(table(:reports))
   end
 end
