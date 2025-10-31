@@ -1,7 +1,8 @@
 defmodule Hachiware.Provider.Aws.IamPolicy do
   use Ash.Resource,
     domain: Hachiware.Provider.Aws,
-    data_layer: AshPostgres.DataLayer
+    data_layer: AshPostgres.DataLayer,
+    primary_read_warning?: false
 
   postgres do
     table "aws_iam_policy"
@@ -23,10 +24,6 @@ defmodule Hachiware.Provider.Aws.IamPolicy do
       primary_key? true
       public? true
       allow_nil? false
-    end
-
-    attribute :policy, :map do
-      public? true
     end
 
     attribute :policy_std, :map do
