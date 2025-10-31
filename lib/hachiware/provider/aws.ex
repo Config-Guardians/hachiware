@@ -4,12 +4,23 @@ defmodule Hachiware.Provider.Aws do
   @behaviour Hachiware.Provider
 
   @impl true
-  def watched_resources, do: Enum.map([
-    :S3Bucket
-  ], &Module.concat(__MODULE__, &1))
+  def watched_resources,
+    do:
+      Enum.map(
+        [
+          :S3Bucket,
+          :VpcSecurityGroupRule,
+          :VpcNetworkAcl,
+          :IamPolicy
+        ],
+        &Module.concat(__MODULE__, &1)
+      )
 
   resources do
     resource __MODULE__.S3Bucket
+    resource __MODULE__.VpcSecurityGroupRule
+    resource __MODULE__.VpcNetworkAcl
+    resource __MODULE__.IamPolicy
   end
 
   domain do
