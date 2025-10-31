@@ -39,4 +39,15 @@ defmodule Hachiware.Reports.Cloud do
 end
 
 require Protocol
-Protocol.derive(Jason.Encoder, Hachiware.Reports.Cloud, except: [:__meta__])
+
+Protocol.derive(Jason.Encoder, Hachiware.Reports.Cloud,
+  except: [
+    :__lateral_join_source__,
+    :__struct__,
+    :__meta__,
+    :__metadata__,
+    :__order__,
+    :aggregates,
+    :calculations
+  ]
+)

@@ -113,4 +113,14 @@ defmodule Hachiware.Reports.Code do
 end
 
 require Protocol
-Protocol.derive(Jason.Encoder, Hachiware.Reports.Code, except: [:__meta__])
+Protocol.derive(Jason.Encoder, Hachiware.Reports.Code,
+  except: [
+    :__lateral_join_source__,
+    :__struct__,
+    :__meta__,
+    :__metadata__,
+    :__order__,
+    :aggregates,
+    :calculations
+  ]
+)
