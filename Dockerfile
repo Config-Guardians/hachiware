@@ -13,4 +13,4 @@ RUN apk add curl
 
 COPY . .
 RUN mix compile
-ENTRYPOINT [ "sh", "-c", "export SECRET_KEY_BASE=$(mix phx.gen.secret); mix ash.setup; mix phx.server" ]
+ENTRYPOINT [ "sh", "-c", "export SECRET_KEY_BASE=$(mix phx.gen.secret); mix phx.server" ]
