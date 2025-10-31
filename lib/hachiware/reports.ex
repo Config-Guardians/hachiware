@@ -4,7 +4,7 @@ defmodule Hachiware.Reports do
 
   json_api do
     routes do
-      base_route "/report", Hachiware.Reports.Report do
+      base_route "/code", Hachiware.Reports.Code do
         index :read
 
         get :read, route: "/:created_at"
@@ -13,7 +13,7 @@ defmodule Hachiware.Reports do
         post :create
       end
 
-      base_route "/command", Hachiware.Reports.Command do
+      base_route "/cloud", Hachiware.Reports.Cloud do
         index :read
 
         get :read, route: "/:created_at"
@@ -25,7 +25,7 @@ defmodule Hachiware.Reports do
   end
 
   resources do
-    resource Hachiware.Reports.Report
-    resource Hachiware.Reports.Command
+    resource Hachiware.Reports.Code
+    resource Hachiware.Reports.Cloud
   end
 end

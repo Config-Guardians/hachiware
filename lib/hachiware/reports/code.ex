@@ -1,4 +1,4 @@
-defmodule Hachiware.Reports.Report do
+defmodule Hachiware.Reports.Code do
   use Ash.Resource,
     domain: Hachiware.Reports,
     data_layer: AshPostgres.DataLayer,
