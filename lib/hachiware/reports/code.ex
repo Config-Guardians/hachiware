@@ -111,9 +111,3 @@ defmodule Hachiware.Reports.Code do
     end
   end
 end
-
-require Protocol
-
-Protocol.derive(Jason.Encoder, Hachiware.Reports.Code,
-  except: Hachiware.Provider.remove_ash_fields()
-)

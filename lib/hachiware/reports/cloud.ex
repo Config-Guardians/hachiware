@@ -37,9 +37,3 @@ defmodule Hachiware.Reports.Cloud do
     end
   end
 end
-
-require Protocol
-
-Protocol.derive(Jason.Encoder, Hachiware.Reports.Cloud,
-  except: Hachiware.Provider.remove_ash_fields()
-)
