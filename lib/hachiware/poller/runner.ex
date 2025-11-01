@@ -19,16 +19,7 @@ defmodule Hachiware.Poller.Runner do
         if Map.get(entries, id) !== diff do
           Hachiware.Sse.ConnectionImplementation.send(%Hachiware.Sse.ConnectionImplementation{
             type: apply(watched_resource, :module_name, []),
-            data:
-              Map.drop(original, [
-                :__lateral_join_source__,
-                :__struct__,
-                :__meta__,
-                :__metadata__,
-                :__order__,
-                :aggregates,
-                :calculations
-              ])
+            data: Map.drop(original, Hachiware.Provider.remove_ash_fields())
           })
         end
 

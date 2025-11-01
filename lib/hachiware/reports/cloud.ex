@@ -5,12 +5,12 @@ defmodule Hachiware.Reports.Cloud do
     extensions: [AshJsonApi.Resource]
 
   postgres do
-    table "command"
+    table "cloud"
     repo Hachiware.Reports.Repo
   end
 
   json_api do
-    type "command"
+    type "cloud"
   end
 
   actions do
@@ -41,13 +41,5 @@ end
 require Protocol
 
 Protocol.derive(Jason.Encoder, Hachiware.Reports.Cloud,
-  except: [
-    :__lateral_join_source__,
-    :__struct__,
-    :__meta__,
-    :__metadata__,
-    :__order__,
-    :aggregates,
-    :calculations
-  ]
+  except: Hachiware.Provider.remove_ash_fields()
 )

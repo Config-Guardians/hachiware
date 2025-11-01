@@ -5,12 +5,12 @@ defmodule Hachiware.Reports.Code do
     extensions: [AshJsonApi.Resource]
 
   postgres do
-    table "reports"
+    table "code"
     repo Hachiware.Reports.Repo
   end
 
   json_api do
-    type "report"
+    type "code"
   end
 
   actions do
@@ -113,14 +113,7 @@ defmodule Hachiware.Reports.Code do
 end
 
 require Protocol
+
 Protocol.derive(Jason.Encoder, Hachiware.Reports.Code,
-  except: [
-    :__lateral_join_source__,
-    :__struct__,
-    :__meta__,
-    :__metadata__,
-    :__order__,
-    :aggregates,
-    :calculations
-  ]
+  except: Hachiware.Provider.remove_ash_fields()
 )
