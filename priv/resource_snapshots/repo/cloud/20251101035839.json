@@ -30,7 +30,7 @@
   "custom_indexes": [],
   "custom_statements": [],
   "has_create_action": true,
-  "hash": "5776BCD148E2B2B634CC06B605FEBD06C1EFA02CF59C0B7C71715B61BF9D6CD4",
+  "hash": "12B906B48D11396E262D400C1BFF9AD56B76F88B014FF1353DF0BB3DE04A7C30",
   "identities": [],
   "multitenancy": {
     "attribute": null,
@@ -39,5 +39,5 @@
   },
   "repo": "Elixir.Hachiware.Reports.Repo",
   "schema": null,
-  "table": "command"
+  "table": "cloud"
 }
