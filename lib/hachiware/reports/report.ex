@@ -4,6 +4,17 @@ defmodule Hachiware.Reports.Report do
     data_layer: AshPostgres.DataLayer,
     extensions: [AshJsonApi.Resource]
 
+  @code_fields [
+    :original_filename,
+    :patched_content,
+    :policy_compliance,
+    :changes_summary,
+    :violations_analysis,
+    :validation_details,
+    :policy_details,
+    :timing
+  ]
+
   postgres do
     table "reports"
     repo Hachiware.Reports.Repo
@@ -32,20 +43,21 @@ defmodule Hachiware.Reports.Report do
   end
 
   validations do
-    validate absent([:command]) do
-      where [attribute_equals(:type, :code)]
-    end
+    validate absent(:command),
+      where: [attribute_equals(:type, :code)]
 
-    validate present(:command) do
-      where [attribute_equals(:type, :cloud)]
-    end
+    validate present(@code_fields, at_least: 1),
+      where: [attribute_equals(:type, :code)]
+
+    validate present(:command),
+      where: [attribute_equals(:type, :cloud)]
+
+    validate absent(@code_fields),
+      where: [attribute_equals(:type, :cloud)]
   end
 
   attributes do
-    create_timestamp :created_at do
-      primary_key? true
-      public? true
-    end
+    create_timestamp :created_at, primary_key?: true, public?: true
 
     attribute :type, :atom do
       allow_nil? false
