@@ -64,6 +64,10 @@ defmodule Hachiware.Provider.Aws.S3Bucket do
 
       public? true
     end
+
+    attribute :versioning_enabled, :boolean do
+      public? true
+    end
   end
 end
 
