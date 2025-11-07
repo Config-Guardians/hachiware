@@ -10,7 +10,7 @@ defmodule Hachiware.Provider.Aws.IamPolicy do
   end
 
   actions do
-    read :read, primary?: true, filter: expr(is_aws_managed == false)
+    read :red, primary?: true, filter: expr(is_aws_managed == false)
   end
 
   attributes do

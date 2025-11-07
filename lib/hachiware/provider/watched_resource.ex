@@ -7,7 +7,9 @@ defmodule Hachiware.Provider.WatchedResource do
 
       @behaviour Hachiware.Provider.WatchedResource
 
-      actions(defaults: [:read])
+      actions do
+        defaults [:read]
+      end
     end
   end
 
