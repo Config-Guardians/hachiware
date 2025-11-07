@@ -1,9 +1,5 @@
 defmodule Hachiware.Provider.Aws.S3Bucket do
-  use Ash.Resource,
-    domain: Hachiware.Provider.Aws,
-    data_layer: AshPostgres.DataLayer
-
-  @behaviour Hachiware.Provider.WatchedResource
+  use Hachiware.Provider.WatchedResource
 
   @impl Hachiware.Provider.WatchedResource
   def module_name, do: "aws_s3"
@@ -23,23 +19,17 @@ defmodule Hachiware.Provider.Aws.S3Bucket do
     repo Hachiware.Provider.Steampipe.Repo
   end
 
-  actions do
-    defaults [:read]
-  end
-
   attributes do
     attribute :arn, :string do
       primary_key? true
       allow_nil? false
     end
 
-    attribute :acl, :map do
-      public? true
-    end
+    attribute :acl, :map, public?: true
 
-    attribute :policy, :map do
-      public? true
-    end
+    attribute :policy, :map, public?: true
+
+    attribute :versioning_enabled, :boolean, public?: true
 
     attribute :server_side_encryption_configuration, :map do
       constraints fields: [
@@ -62,10 +52,6 @@ defmodule Hachiware.Provider.Aws.S3Bucket do
                     ]
                   ]
 
-      public? true
-    end
-
-    attribute :versioning_enabled, :boolean do
       public? true
     end
   end

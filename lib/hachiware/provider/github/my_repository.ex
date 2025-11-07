@@ -1,17 +1,12 @@
 defmodule Hachiware.Provider.Github.MyRepository do
-  use Ash.Resource,
-    domain: Hachiware.Provider.Github,
-    data_layer: AshPostgres.DataLayer
+  use Hachiware.Provider.WatchedResource,
+    domain: Hachiware.Provider.Github
 
   postgres do
     table "github_my_repository"
     schema "github"
 
     repo Hachiware.Provider.Steampipe.Repo
-  end
-
-  actions do
-    defaults [:read]
   end
 
   attributes do
@@ -21,12 +16,8 @@ defmodule Hachiware.Provider.Github.MyRepository do
       public? true
     end
 
-    attribute :login_id, :string do
-      public? true
-    end
+    attribute :login_id, :string, public?: true
   end
-
-  @behaviour Hachiware.Provider.WatchedResource
 
   @impl Hachiware.Provider.WatchedResource
   def module_name, do: "github_files"

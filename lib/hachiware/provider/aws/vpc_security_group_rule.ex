@@ -1,17 +1,11 @@
 defmodule Hachiware.Provider.Aws.VpcSecurityGroupRule do
-  use Ash.Resource,
-    domain: Hachiware.Provider.Aws,
-    data_layer: AshPostgres.DataLayer
+  use Hachiware.Provider.WatchedResource
 
   postgres do
     table "aws_vpc_security_group_rule"
     schema "aws"
 
     repo Hachiware.Provider.Steampipe.Repo
-  end
-
-  actions do
-    defaults [:read]
   end
 
   attributes do
@@ -21,36 +15,20 @@ defmodule Hachiware.Provider.Aws.VpcSecurityGroupRule do
       allow_nil? false
     end
 
-    attribute :cidr_ipv4, :map do
-      public? true
-    end
+    attribute :cidr_ipv4, :map, public?: true
 
-    attribute :cidr_ipv6, :map do
-      public? true
-    end
+    attribute :cidr_ipv6, :map, public?: true
 
-    attribute :from_port, :integer do
-      public? true
-    end
+    attribute :from_port, :integer, public?: true
 
-    attribute :ip_protocol, :string do
-      public? true
-    end
+    attribute :ip_protocol, :string, public?: true
 
-    attribute :is_egress, :boolean do
-      public? true
-    end
+    attribute :is_egress, :boolean, public?: true
 
-    attribute :to_port, :integer do
-      public? true
-    end
+    attribute :to_port, :integer, public?: true
 
-    attribute :type, :string do
-      public? true
-    end
+    attribute :type, :string, public?: true
   end
-
-  @behaviour Hachiware.Provider.WatchedResource
 
   @impl Hachiware.Provider.WatchedResource
   def module_name, do: "aws_vpc_security_group_rule"

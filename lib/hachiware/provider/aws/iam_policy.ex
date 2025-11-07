@@ -1,7 +1,5 @@
 defmodule Hachiware.Provider.Aws.IamPolicy do
-  use Ash.Resource,
-    domain: Hachiware.Provider.Aws,
-    data_layer: AshPostgres.DataLayer,
+  use Hachiware.Provider.WatchedResource,
     primary_read_warning?: false
 
   postgres do
@@ -12,11 +10,7 @@ defmodule Hachiware.Provider.Aws.IamPolicy do
   end
 
   actions do
-    read :read do
-      primary? true
-
-      filter expr(is_aws_managed == false)
-    end
+    read :read, primary?: true, filter: expr(is_aws_managed == false)
   end
 
   attributes do
@@ -26,16 +20,10 @@ defmodule Hachiware.Provider.Aws.IamPolicy do
       allow_nil? false
     end
 
-    attribute :policy_std, :map do
-      public? true
-    end
+    attribute :policy_std, :map, public?: true
 
-    attribute :is_aws_managed, :boolean do
-      public? true
-    end
+    attribute :is_aws_managed, :boolean, public?: true
   end
-
-  @behaviour Hachiware.Provider.WatchedResource
 
   @impl Hachiware.Provider.WatchedResource
   def module_name, do: "aws_iam_policy"

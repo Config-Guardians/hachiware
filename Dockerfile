@@ -1,4 +1,4 @@
-FROM elixir:1.18.4-alpine
+FROM elixir:1.19.0-alpine
 WORKDIR /app
 ENV PHX_SERVER=true
 #MIX_ENV=prod
@@ -7,7 +7,7 @@ COPY ./mix.* .
 COPY ./config/config.exs ./config/
 COPY ./config/dev.exs ./config/
 COPY ./config/prod.exs ./config/
-RUN mix deps.get
+RUN mix setup
 RUN mix compile
 RUN apk add curl
 

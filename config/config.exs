@@ -63,7 +63,8 @@ config :spark,
 
 config :hachiware,
   generators: [timestamp_type: :utc_datetime],
-  ecto_repos: [Hachiware.Reports.Repo, Hachiware.Provider.Steampipe.Repo]
+  ecto_repos: [Hachiware.Reports.Repo, Hachiware.Provider.Steampipe.Repo],
+  base_resource: [Hachiware.Provider.WatchedResources]
 
 # Configures the endpoint
 config :hachiware, HachiwareWeb.Endpoint,
