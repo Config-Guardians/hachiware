@@ -8,15 +8,17 @@ defmodule Hachiware.Reports.Repo.Migrations.UpdatedSchema do
   use Ecto.Migration
 
   def up do
-    create table(:code, primary_key: false) do
+    create table(:reports, primary_key: false) do
       add(:created_at, :utc_datetime_usec,
         null: false,
         default: fragment("(now() AT TIME ZONE 'utc')"),
         primary_key: true
       )
 
-      add(:original_filename, :text, null: false)
-      add(:patched_content, :text, null: false)
+      add(:type, :text, null: false)
+      add(:command, :text)
+      add(:original_filename, :text)
+      add(:patched_content, :text)
       add(:policy_compliance, :map)
       add(:changes_summary, :map)
       add(:violations_analysis, :map)
@@ -24,21 +26,9 @@ defmodule Hachiware.Reports.Repo.Migrations.UpdatedSchema do
       add(:policy_details, :map)
       add(:timing, :map)
     end
-
-    create table(:cloud, primary_key: false) do
-      add(:created_at, :utc_datetime_usec,
-        null: false,
-        default: fragment("(now() AT TIME ZONE 'utc')"),
-        primary_key: true
-      )
-
-      add(:command, :text, null: false)
-    end
   end
 
   def down do
-    drop(table(:cloud))
-
-    drop(table(:code))
+    drop(table(:reports))
   end
 end
