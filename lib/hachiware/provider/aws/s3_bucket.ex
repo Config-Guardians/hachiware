@@ -63,7 +63,8 @@ defimpl Hachiware.Poller.Runner.Diff, for: Hachiware.Provider.Aws.S3Bucket do
   def diff_attribute(%Hachiware.Provider.Aws.S3Bucket{
         acl: acl,
         policy: policy,
-        server_side_encryption_configuration: server_side_encryption_configuration
+        versioning_enabled: ver,
+        server_side_encryption_configuration: sse
       }) do
     # Remove all instances of DisplayName (it returns nil sometimes and owner other times)
     pop_in(acl, ["Owner", "DisplayName"])
@@ -71,6 +72,6 @@ defimpl Hachiware.Poller.Runner.Diff, for: Hachiware.Provider.Aws.S3Bucket do
     |> update_in(["Grants"], fn x ->
       Enum.map(x, &(pop_in(&1, ["Grantee", "DisplayName"]) |> elem(1)))
     end)
-    |> then(&{&1, policy, server_side_encryption_configuration})
+    |> then(&{&1, policy, ver, sse})
   end
 end

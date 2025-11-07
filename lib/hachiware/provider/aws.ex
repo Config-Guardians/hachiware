@@ -11,7 +11,8 @@ defmodule Hachiware.Provider.Aws do
           :S3Bucket,
           :VpcSecurityGroupRule,
           :VpcNetworkAcl,
-          :IamPolicy
+          :IamPolicy,
+          :IamAccountPasswordPolicy
         ],
         &Module.concat(__MODULE__, &1)
       )
@@ -21,6 +22,7 @@ defmodule Hachiware.Provider.Aws do
     resource __MODULE__.VpcSecurityGroupRule
     resource __MODULE__.VpcNetworkAcl
     resource __MODULE__.IamPolicy
+    resource __MODULE__.IamAccountPasswordPolicy
   end
 
   domain do
