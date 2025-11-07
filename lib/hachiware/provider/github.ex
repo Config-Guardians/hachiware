@@ -4,7 +4,7 @@ defmodule Hachiware.Provider.Github do
   @behaviour Hachiware.Provider
 
   @impl true
-  def watched_resources, do: __MODULE__.MyRepository
+  def watched_resources, do: [__MODULE__.MyRepository]
 
   resources do
     resource __MODULE__.RepositoryContent
