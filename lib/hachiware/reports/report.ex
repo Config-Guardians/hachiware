@@ -31,6 +31,16 @@ defmodule Hachiware.Reports.Report do
     end
   end
 
+  validations do
+    validate absent([:command]) do
+      where [attribute_equals(:type, :code)]
+    end
+
+    validate present(:command) do
+      where [attribute_equals(:type, :cloud)]
+    end
+  end
+
   attributes do
     create_timestamp :created_at do
       primary_key? true
