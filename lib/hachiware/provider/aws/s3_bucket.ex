@@ -25,35 +25,11 @@ defmodule Hachiware.Provider.Aws.S3Bucket do
       allow_nil? false
     end
 
-    attribute :acl, :map, public?: true
-
-    attribute :policy, :map, public?: true
+    for x <- [:acl, :policy, :server_side_encryption_configuration] do
+      attribute x, :map, public?: true
+    end
 
     attribute :versioning_enabled, :boolean, public?: true
-
-    attribute :server_side_encryption_configuration, :map do
-      constraints fields: [
-                    Rules: [
-                      type: {:array, :map},
-                      constraints: [
-                        fields: [
-                          ApplyServerSideEncryptionByDefault: [
-                            type: :map,
-                            constraints: [
-                              fields: [
-                                KMSMasterKeyID: [type: :string],
-                                SSEAlgorithm: [type: :string]
-                              ]
-                            ]
-                          ],
-                          BucketKeyEnabled: [type: :boolean]
-                        ]
-                      ]
-                    ]
-                  ]
-
-      public? true
-    end
   end
 end
 

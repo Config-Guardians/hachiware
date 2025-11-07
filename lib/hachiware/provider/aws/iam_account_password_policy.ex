@@ -22,11 +22,11 @@ defmodule Hachiware.Provider.Aws.IamAccountPasswordPolicy do
           :require_symbols,
           :require_uppercase_characters
         ] do
-      attribute(x, :boolean, public?: true)
+      attribute x, :boolean, public?: true
     end
 
     for x <- [:max_password_age, :minimum_password_length] do
-      attribute(x, :integer, public?: true)
+      attribute x, :integer, public?: true
     end
   end
 

@@ -32,11 +32,9 @@ defmodule Hachiware.Provider.Github.RepositoryContent do
       select_by_default? false
     end
 
-    attribute :path, :string, public?: true
-
-    attribute :repository_full_name, :string, public?: true
-
-    attribute :content, :string, public?: true
+    for x <- [:path, :repository_full_name, :content] do
+      attribute x, :string, public?: true
+    end
   end
 end
 

@@ -15,19 +15,19 @@ defmodule Hachiware.Provider.Aws.VpcSecurityGroupRule do
       allow_nil? false
     end
 
-    attribute :cidr_ipv4, :map, public?: true
+    for x <- [:cidr_ipv4, :cidr_ipv6] do
+      attribute x, :map, public?: true
+    end
 
-    attribute :cidr_ipv6, :map, public?: true
+    for x <- [:from_port, :to_port] do
+      attribute x, :integer, public?: true
+    end
 
-    attribute :from_port, :integer, public?: true
-
-    attribute :ip_protocol, :string, public?: true
+    for x <- [:ip_protocol, :type] do
+      attribute x, :string, public?: true
+    end
 
     attribute :is_egress, :boolean, public?: true
-
-    attribute :to_port, :integer, public?: true
-
-    attribute :type, :string, public?: true
   end
 
   @impl Hachiware.Provider.WatchedResource
