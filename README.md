@@ -1,6 +1,7 @@
 <p align="center">
   <img width="75%" src="https://static.wikia.nocookie.net/chiikawa/images/6/61/SweetBabyHachiware2.png/revision/latest?cb=20240709065538" alt="Banner">
 </p>
+
 # Notes
 Postgres must be installed as per [AshPostgres documentation](https://hexdocs.pm/ash_postgres/get-started-with-ash-postgres.html)
 Make sure to run `mix ash.setup` before starting the server to setup the database
