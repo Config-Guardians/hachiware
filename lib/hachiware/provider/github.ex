@@ -1,18 +1,10 @@
 defmodule Hachiware.Provider.Github do
-  use Ash.Domain,
-    extensions: [AshJsonApi.Domain]
+  use Ash.Domain
 
   @behaviour Hachiware.Provider
 
   @impl true
-  def watched_resources,
-    do:
-      Enum.map(
-        [
-          :MyRepository
-        ],
-        &Module.concat(__MODULE__, &1)
-      )
+  def watched_resources, do: [__MODULE__.MyRepository]
 
   resources do
     resource __MODULE__.RepositoryContent

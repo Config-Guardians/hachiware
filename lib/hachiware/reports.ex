@@ -12,20 +12,10 @@ defmodule Hachiware.Reports do
 
         post :create
       end
-
-      base_route "/command", Hachiware.Reports.Command do
-        index :read
-
-        get :read, route: "/:created_at"
-        index :search, route: "/filter/:filter_value"
-
-        post :create
-      end
     end
   end
 
   resources do
     resource Hachiware.Reports.Report
-    resource Hachiware.Reports.Command
   end
 end

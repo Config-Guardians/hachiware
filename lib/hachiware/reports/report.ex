@@ -4,6 +4,17 @@ defmodule Hachiware.Reports.Report do
     data_layer: AshPostgres.DataLayer,
     extensions: [AshJsonApi.Resource]
 
+  @code_fields [
+    :original_filename,
+    :patched_content,
+    :policy_compliance,
+    :changes_summary,
+    :violations_analysis,
+    :validation_details,
+    :policy_details,
+    :timing
+  ]
+
   postgres do
     table "reports"
     repo Hachiware.Reports.Repo
@@ -24,29 +35,75 @@ defmodule Hachiware.Reports.Report do
       pagination keyset?: true, offset?: true
 
       filter expr(
-               contains(original_filename, ^arg(:filter_value)) or
+               contains(command, ^arg(:filter_value)) or
+                 contains(name, ^arg(:filter_value)) or
+                 contains(original_filename, ^arg(:filter_value)) or
                  contains(patched_content, ^arg(:filter_value))
              )
     end
   end
 
+  validations do
+    validate absent([:command, :name]),
+      where: [attribute_equals(:type, :code)]
+
+    validate present(@code_fields, at_least: 1),
+      where: [attribute_equals(:type, :code)]
+
+    validate present([:command, :name]),
+      where: [attribute_equals(:type, :cloud)]
+
+    validate absent(@code_fields),
+      where: [attribute_equals(:type, :cloud)]
+  end
+
   attributes do
-    create_timestamp :created_at do
-      primary_key? true
+    create_timestamp :created_at, primary_key?: true, public?: true
+
+    attribute :type, :atom do
+      allow_nil? false
+
+      constraints one_of: [:code, :cloud]
+      public? true
+    end
+
+    attribute :command, :string do
+      description """
+      This field is for cloud reports
+      """
+
+      public? true
+    end
+
+    attribute :name, :string do
+      description """
+      This field is for cloud reports
+      """
+
       public? true
     end
 
     attribute :original_filename, :string do
-      allow_nil? false
+      description """
+      This field is for code reports
+      """
+
       public? true
     end
 
     attribute :patched_content, :string do
-      allow_nil? false
+      description """
+      This field is for code reports
+      """
+
       public? true
     end
 
     attribute :policy_compliance, :map do
+      description """
+      This field is for code reports
+      """
+
       constraints fields: [
                     violations_detected: [type: :integer, constraints: [min: 0]],
                     validation_status: [type: :string],
@@ -57,6 +114,10 @@ defmodule Hachiware.Reports.Report do
     end
 
     attribute :changes_summary, :map do
+      description """
+      This field is for code reports
+      """
+
       constraints fields: [
                     total_changes: [type: :integer, constraints: [min: 0]],
                     changes_detail: [
@@ -75,6 +136,10 @@ defmodule Hachiware.Reports.Report do
     end
 
     attribute :violations_analysis, :map do
+      description """
+      This field is for code reports
+      """
+
       constraints fields: [
                     raw_violations: [type: :string]
                   ]
@@ -83,6 +148,10 @@ defmodule Hachiware.Reports.Report do
     end
 
     attribute :validation_details, :map do
+      description """
+      This field is for code reports
+      """
+
       constraints fields: [
                     original_file_validation: [type: :string],
                     patched_file_validation: [type: :string],
@@ -94,6 +163,10 @@ defmodule Hachiware.Reports.Report do
     end
 
     attribute :policy_details, :map do
+      description """
+      This field is for code reports
+      """
+
       constraints fields: [
                     policy_file: [type: :string],
                     specific_rules: [type: {:array, :string}]
@@ -103,6 +176,10 @@ defmodule Hachiware.Reports.Report do
     end
 
     attribute :timing, :map do
+      description """
+      This field is for code reports
+      """
+
       constraints fields: [
                     remediation_start_time: [type: :string],
                     remediation_end_time: [type: :string],

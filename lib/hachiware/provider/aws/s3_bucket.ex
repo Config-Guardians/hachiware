@@ -1,9 +1,5 @@
 defmodule Hachiware.Provider.Aws.S3Bucket do
-  use Ash.Resource,
-    domain: Hachiware.Provider.Aws,
-    data_layer: AshPostgres.DataLayer
-
-  @behaviour Hachiware.Provider.WatchedResource
+  use Hachiware.Provider.WatchedResource
 
   @impl Hachiware.Provider.WatchedResource
   def module_name, do: "aws_s3"
@@ -23,47 +19,17 @@ defmodule Hachiware.Provider.Aws.S3Bucket do
     repo Hachiware.Provider.Steampipe.Repo
   end
 
-  actions do
-    defaults [:read]
-  end
-
   attributes do
     attribute :arn, :string do
       primary_key? true
       allow_nil? false
     end
 
-    attribute :acl, :map do
-      public? true
+    for x <- [:acl, :policy, :server_side_encryption_configuration] do
+      attribute x, :map, public?: true
     end
 
-    attribute :policy, :map do
-      public? true
-    end
-
-    attribute :server_side_encryption_configuration, :map do
-      constraints fields: [
-                    Rules: [
-                      type: {:array, :map},
-                      constraints: [
-                        fields: [
-                          ApplyServerSideEncryptionByDefault: [
-                            type: :map,
-                            constraints: [
-                              fields: [
-                                KMSMasterKeyID: [type: :string],
-                                SSEAlgorithm: [type: :string]
-                              ]
-                            ]
-                          ],
-                          BucketKeyEnabled: [type: :boolean]
-                        ]
-                      ]
-                    ]
-                  ]
-
-      public? true
-    end
+    attribute :versioning_enabled, :boolean, public?: true
   end
 end
 
@@ -73,7 +39,8 @@ defimpl Hachiware.Poller.Runner.Diff, for: Hachiware.Provider.Aws.S3Bucket do
   def diff_attribute(%Hachiware.Provider.Aws.S3Bucket{
         acl: acl,
         policy: policy,
-        server_side_encryption_configuration: server_side_encryption_configuration
+        versioning_enabled: ver,
+        server_side_encryption_configuration: sse
       }) do
     # Remove all instances of DisplayName (it returns nil sometimes and owner other times)
     pop_in(acl, ["Owner", "DisplayName"])
@@ -81,6 +48,6 @@ defimpl Hachiware.Poller.Runner.Diff, for: Hachiware.Provider.Aws.S3Bucket do
     |> update_in(["Grants"], fn x ->
       Enum.map(x, &(pop_in(&1, ["Grantee", "DisplayName"]) |> elem(1)))
     end)
-    |> then(&{&1, policy, server_side_encryption_configuration})
+    |> then(&{&1, policy, ver, sse})
   end
 end

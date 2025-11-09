@@ -1,17 +1,12 @@
 defmodule Hachiware.Provider.Github.MyRepository do
-  use Ash.Resource,
-    domain: Hachiware.Provider.Github,
-    data_layer: AshPostgres.DataLayer
+  use Hachiware.Provider.WatchedResource,
+    domain: Hachiware.Provider.Github
 
   postgres do
     table "github_my_repository"
     schema "github"
 
     repo Hachiware.Provider.Steampipe.Repo
-  end
-
-  actions do
-    defaults [:read]
   end
 
   attributes do
@@ -21,12 +16,8 @@ defmodule Hachiware.Provider.Github.MyRepository do
       public? true
     end
 
-    attribute :login_id, :string do
-      public? true
-    end
+    attribute :login_id, :string, public?: true
   end
-
-  @behaviour Hachiware.Provider.WatchedResource
 
   @impl Hachiware.Provider.WatchedResource
   def module_name, do: "github_files"
@@ -38,10 +29,14 @@ defmodule Hachiware.Provider.Github.MyRepository do
     __MODULE__
     |> Ash.read!()
     |> Stream.map(&Map.get(&1, :name_with_owner))
-    |> Stream.flat_map(
-      &(Hachiware.Provider.Github.RepositoryContent
+    |> Enum.map(
+      &Task.async(fn ->
+        Hachiware.Provider.Github.RepositoryContent
         |> Ash.Query.for_read(:read, %{repository_full_name: &1})
-        |> Ash.read!())
+        |> Ash.read!()
+      end)
     )
+    |> Stream.map(&Task.await(&1, :infinity))
+    |> Stream.flat_map(& &1)
   end
 end

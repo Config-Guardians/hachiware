@@ -16,7 +16,8 @@ config :hachiware, Hachiware.Provider.Steampipe.Repo,
   database: "steampipe",
   port: 9193,
   show_sensitive_data_on_connection_error: true,
-  pool_size: 10,
+  pool_size: 70,
+  queue_target: :infinity,
   timeout: :infinity
 
 config :ash, policies: [show_policy_breakdowns?: true]

@@ -32,19 +32,8 @@ defmodule Hachiware.Provider.Github.RepositoryContent do
       select_by_default? false
     end
 
-    attribute :path, :string do
-      public? true
-      description "The path of the file."
-    end
-
-    attribute :repository_full_name, :string do
-      public? true
-      description "The full name of the repository (login/repo-name)."
-    end
-
-    attribute :content, :string do
-      public? true
-      description "The decoded file content (if the element is a file)."
+    for x <- [:path, :repository_full_name, :content] do
+      attribute x, :string, public?: true
     end
   end
 end

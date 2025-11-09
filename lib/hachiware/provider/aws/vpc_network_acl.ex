@@ -1,17 +1,11 @@
 defmodule Hachiware.Provider.Aws.VpcNetworkAcl do
-  use Ash.Resource,
-    domain: Hachiware.Provider.Aws,
-    data_layer: AshPostgres.DataLayer
+  use Hachiware.Provider.WatchedResource
 
   postgres do
     table "aws_vpc_network_acl"
     schema "aws"
 
     repo Hachiware.Provider.Steampipe.Repo
-  end
-
-  actions do
-    defaults [:read]
   end
 
   attributes do
@@ -21,12 +15,8 @@ defmodule Hachiware.Provider.Aws.VpcNetworkAcl do
       allow_nil? false
     end
 
-    attribute :entries, {:array, :map} do
-      public? true
-    end
+    attribute :entries, {:array, :map}, public?: true
   end
-
-  @behaviour Hachiware.Provider.WatchedResource
 
   @impl Hachiware.Provider.WatchedResource
   def module_name, do: "aws_vpc_network_acl"
