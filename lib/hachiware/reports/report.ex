@@ -43,13 +43,13 @@ defmodule Hachiware.Reports.Report do
   end
 
   validations do
-    validate absent(:command),
+    validate absent([:command, :name]),
       where: [attribute_equals(:type, :code)]
 
     validate present(@code_fields, at_least: 1),
       where: [attribute_equals(:type, :code)]
 
-    validate present(:command),
+    validate present([:command, :name]),
       where: [attribute_equals(:type, :cloud)]
 
     validate absent(@code_fields),
@@ -67,6 +67,14 @@ defmodule Hachiware.Reports.Report do
     end
 
     attribute :command, :string do
+      description """
+      This field is for cloud reports
+      """
+
+      public? true
+    end
+
+    attribute :name, :string do
       description """
       This field is for cloud reports
       """
