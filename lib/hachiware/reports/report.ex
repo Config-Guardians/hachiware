@@ -36,6 +36,7 @@ defmodule Hachiware.Reports.Report do
 
       filter expr(
                contains(command, ^arg(:filter_value)) or
+                 contains(name, ^arg(:filter_value)) or
                  contains(original_filename, ^arg(:filter_value)) or
                  contains(patched_content, ^arg(:filter_value))
              )
