@@ -25,18 +25,17 @@ defmodule Hachiware.Poller.Server do
     |> Ash.read!()
     |> Stream.map(&Map.get(&1, :provider))
     |> Stream.map(fn module_name ->
-      IO.inspect(module_name)
-
       if :ets.insert_new(__MODULE__, {module_name}) do
-        IO.inspect("Created")
+        Task.Supervisor.async_nolink(
+          Hachiware.Poller,
+          fn ->
+            Module.concat(Hachiware.Provider, module_name)
+            |> apply(:watched_resources, [])
+            |> Enum.each(&Hachiware.Poller.Runner.run/1)
 
-        Task.Supervisor.async_nolink(Hachiware.Poller, fn ->
-          Module.concat(Hachiware.Provider, module_name)
-          |> apply(:watched_resources, [])
-          |> Enum.each(&Hachiware.Poller.Runner.run/1)
-
-          module_name
-        end)
+            module_name
+          end
+        )
       end
     end)
     |> Enum.to_list()
@@ -46,9 +45,6 @@ defmodule Hachiware.Poller.Server do
 
   @impl GenServer
   def handle_info({_ref, module_name}, timeout) do
-    IO.puts("Deleting")
-    IO.inspect(module_name)
-
     :ets.delete(__MODULE__, module_name)
     {:noreply, timeout, timeout}
   end
