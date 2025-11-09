@@ -29,10 +29,14 @@ defmodule Hachiware.Provider.Github.MyRepository do
     __MODULE__
     |> Ash.read!()
     |> Stream.map(&Map.get(&1, :name_with_owner))
-    |> Stream.flat_map(
-      &(Hachiware.Provider.Github.RepositoryContent
+    |> Enum.map(
+      &Task.async(fn ->
+        Hachiware.Provider.Github.RepositoryContent
         |> Ash.Query.for_read(:read, %{repository_full_name: &1})
-        |> Ash.read!())
+        |> Ash.read!()
+      end)
     )
+    |> Stream.map(&Task.await(&1, :infinity))
+    |> Stream.flat_map(& &1)
   end
 end

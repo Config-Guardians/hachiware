@@ -12,7 +12,12 @@ defmodule Hachiware.Poller.Runner do
         &1
       }
     )
-    |> Stream.each(fn {id, diff, original} ->
+    |> Stream.each(&diff_on_record(watched_resource, &1))
+    |> Enum.to_list()
+  end
+
+  defp diff_on_record(watched_resource, {id, diff, original}) do
+    Task.Supervisor.start_child(Hachiware.Poller, fn ->
       Hachiware.Poller.Storage.set_stored(fn stored_map ->
         entries = Map.get(stored_map, watched_resource, %{})
 
@@ -27,6 +32,5 @@ defmodule Hachiware.Poller.Runner do
         |> then(&Map.put(stored_map, watched_resource, &1))
       end)
     end)
-    |> Enum.to_list()
   end
 end
