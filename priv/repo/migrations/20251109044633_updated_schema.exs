@@ -17,6 +17,7 @@ defmodule Hachiware.Reports.Repo.Migrations.UpdatedSchema do
 
       add(:type, :text, null: false)
       add(:command, :text)
+      add(:name, :text)
       add(:original_filename, :text)
       add(:patched_content, :text)
       add(:policy_compliance, :map)

@@ -45,6 +45,18 @@
       "references": null,
       "scale": null,
       "size": null,
+      "source": "name",
+      "type": "text"
+    },
+    {
+      "allow_nil?": true,
+      "default": "nil",
+      "generated?": false,
+      "precision": null,
+      "primary_key?": false,
+      "references": null,
+      "scale": null,
+      "size": null,
       "source": "original_filename",
       "type": "text"
     },
@@ -138,7 +150,7 @@
   "custom_indexes": [],
   "custom_statements": [],
   "has_create_action": true,
-  "hash": "2521EE7D9D19E623CF0A7C7529E17C4E75B6B71F0EC373859AFC0AC64F302D70",
+  "hash": "3AA644E1B12C13F464ADF44909FB39B15372687FAB98915FC91BFB1F030101FD",
   "identities": [],
   "multitenancy": {
     "attribute": null,
