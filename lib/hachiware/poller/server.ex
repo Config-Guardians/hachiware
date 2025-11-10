@@ -38,7 +38,7 @@ defmodule Hachiware.Poller.Server do
         )
       end
     end)
-    |> Enum.to_list()
+    |> Stream.run()
 
     {:noreply, timeout, timeout}
   end

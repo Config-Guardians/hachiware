@@ -13,7 +13,7 @@ defmodule Hachiware.Poller.Runner do
       }
     )
     |> Stream.each(&diff_on_record(watched_resource, &1))
-    |> Enum.to_list()
+    |> Stream.run()
   end
 
   defp diff_on_record(watched_resource, {id, diff, original}) do
