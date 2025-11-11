@@ -40,6 +40,7 @@ defmodule Hachiware.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:cors_plug, "~> 3.0"},
       {:ash_jason, "~> 3.0.0"},
       {:sse_phoenix_pubsub, "~> 1.0"},
       {:ash_postgres, "~> 2.0"},

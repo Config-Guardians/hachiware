@@ -8,7 +8,9 @@ defmodule Hachiware.Reports.Repo.Migrations.UpdatedSchema do
   use Ecto.Migration
 
   def up do
-    create table(:reports, primary_key: false) do
+    execute("CREATE SCHEMA IF NOT EXISTS public")
+
+    create table(:reports, primary_key: false, prefix: "public") do
       add(:created_at, :utc_datetime_usec,
         null: false,
         default: fragment("(now() AT TIME ZONE 'utc')"),
@@ -30,6 +32,6 @@ defmodule Hachiware.Reports.Repo.Migrations.UpdatedSchema do
   end
 
   def down do
-    drop(table(:reports))
+    drop(table(:reports, prefix: "public"))
   end
 end

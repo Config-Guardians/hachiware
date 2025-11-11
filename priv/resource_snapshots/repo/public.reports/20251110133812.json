@@ -150,7 +150,7 @@
   "custom_indexes": [],
   "custom_statements": [],
   "has_create_action": true,
-  "hash": "3AA644E1B12C13F464ADF44909FB39B15372687FAB98915FC91BFB1F030101FD",
+  "hash": "D9C26074F2B8B7D5AA1B2ABC4E4120F90203E02ECDF105094D642A74A012652E",
   "identities": [],
   "multitenancy": {
     "attribute": null,
@@ -158,6 +158,6 @@
     "strategy": null
   },
   "repo": "Elixir.Hachiware.Reports.Repo",
-  "schema": null,
+  "schema": "public",
   "table": "reports"
 }

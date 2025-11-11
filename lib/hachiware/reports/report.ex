@@ -17,6 +17,8 @@ defmodule Hachiware.Reports.Report do
 
   postgres do
     table "reports"
+    schema "public"
+
     repo Hachiware.Reports.Repo
   end
 
