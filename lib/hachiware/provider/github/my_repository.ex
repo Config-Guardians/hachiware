@@ -16,7 +16,7 @@ defmodule Hachiware.Provider.Github.MyRepository do
       public? true
     end
 
-    attribute :login_id, :string, public?: true
+    attribute :is_in_organization, :boolean, public?: true
   end
 
   @impl Hachiware.Provider.WatchedResource
@@ -26,7 +26,10 @@ defmodule Hachiware.Provider.Github.MyRepository do
   def retrieve_records do
     IO.puts("Scanning Github repository content")
 
+    require Ash.Query
+
     __MODULE__
+    |> Ash.Query.filter(is_in_organization)
     |> Ash.read!()
     |> Stream.map(&Map.get(&1, :name_with_owner))
     |> then(

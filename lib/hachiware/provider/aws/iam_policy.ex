@@ -1,16 +1,11 @@
 defmodule Hachiware.Provider.Aws.IamPolicy do
-  use Hachiware.Provider.WatchedResource,
-    primary_read_warning?: false
+  use Hachiware.Provider.WatchedResource
 
   postgres do
     table "aws_iam_policy"
     schema "aws"
 
     repo Hachiware.Provider.Steampipe.Repo
-  end
-
-  actions do
-    read :red, primary?: true, filter: expr(is_aws_managed == false)
   end
 
   attributes do
@@ -32,7 +27,10 @@ defmodule Hachiware.Provider.Aws.IamPolicy do
   def retrieve_records do
     IO.puts("Scanning IAM policies")
 
+    require Ash.Query
+
     __MODULE__
+    |> Ash.Query.filter(not is_aws_managed)
     |> Ash.read!()
   end
 end
