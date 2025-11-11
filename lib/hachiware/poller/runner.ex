@@ -17,6 +17,15 @@ defmodule Hachiware.Poller.Runner do
   end
 
   defp diff_on_record(watched_resource, {id, diff, original}) do
+    original =
+      case original do
+        %Hachiware.Provider.Aws.IamAccessKey{} = s ->
+          Map.update!(s, :access_key_last_used_date, fn _ -> ~U[1990-01-01 00:00:00Z] end)
+
+        _ ->
+          original
+      end
+
     Task.Supervisor.start_child(Hachiware.Poller, fn ->
       Hachiware.Poller.Storage.set_stored(fn stored_map ->
         entries = Map.get(stored_map, watched_resource, %{})

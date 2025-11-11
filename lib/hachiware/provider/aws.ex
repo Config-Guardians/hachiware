@@ -2,11 +2,11 @@ defmodule Hachiware.Provider.Aws do
   use Ash.Domain
 
   @resources [
-    __MODULE__.S3Bucket,
-    __MODULE__.VpcSecurityGroupRule,
-    __MODULE__.VpcNetworkAcl,
-    __MODULE__.IamPolicy,
-    __MODULE__.IamAccountPasswordPolicy,
+    # __MODULE__.S3Bucket,
+    # __MODULE__.VpcSecurityGroupRule,
+    # __MODULE__.VpcNetworkAcl,
+    # __MODULE__.IamPolicy,
+    # __MODULE__.IamAccountPasswordPolicy,
     __MODULE__.IamAccessKey
   ]
 
