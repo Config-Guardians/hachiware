@@ -12,10 +12,11 @@ This repository combines the below into a single Phoenix/Ash server:
 
 * A backend to store reports generated from our [agent system](https://github.com/Config-Guardians/agent-system) and view them within our [dashboard](https://github.com/Config-Guardians/dashboard)
 * An extensible system to map resources available on [Steampipe](https://steampipe.io/) to a monitor-able target
-* * As an example, here is how we mapped the [aws_iam_policy](https://hub.steampipe.io/plugins/turbot/aws/tables/aws_iam_policy) to [a target in Elixir](https://github.com/Config-Guardians/hachiware/blob/main/lib/hachiware/provider/aws/iam_policy.ex)
+  * As an example, here is how we mapped the [aws_iam_policy](https://hub.steampipe.io/plugins/turbot/aws/tables/aws_iam_policy) to [a target in Elixir](https://github.com/Config-Guardians/hachiware/blob/main/lib/hachiware/provider/aws/iam_policy.ex)
 * A polling system to track changes made to these resources and push them to our [agent system](https://github.com/Config-Guardians/agent-system) through SSE if any are detected
+  * Format of SSE messages can be found on [this GitHub gist](https://gist.github.com/Zachareee/fdb4dcc61ffed3081fe6ea9b7c039424)
 * A pass-through REST API endpoint to configure credentials on our [steampipe-sidecar](https://github.com/Config-Guardians/steampipe-sidecar) component
-* * The pass-through allows Hachiware to intercept successful credential parsing responses from steampipe-sidecar. The provider with the authenticated credentials will then have its resources monitored for changes
+  * The pass-through allows Hachiware to intercept successful credential parsing responses from steampipe-sidecar. The provider with the authenticated credentials will then have its resources monitored for changes
 
 The pre-built Docker image is hosted at https://hub.docker.com/repository/docker/zachareee/hachiware
 
