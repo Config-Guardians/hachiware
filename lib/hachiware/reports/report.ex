@@ -37,10 +37,10 @@ defmodule Hachiware.Reports.Report do
       pagination keyset?: true, offset?: true
 
       filter expr(
-               contains(command, ^arg(:filter_value)) or
-                 contains(name, ^arg(:filter_value)) or
-                 contains(original_filename, ^arg(:filter_value)) or
-                 contains(patched_content, ^arg(:filter_value))
+               ilike(command, "%" <> ^arg(:filter_value) <> "%") or
+                 ilike(name, "%" <> ^arg(:filter_value) <> "%") or
+                 ilike(original_filename, "%" <> ^arg(:filter_value) <> "%") or
+                 ilike(patched_content, "%" <> ^arg(:filter_value) <> "%")
              )
     end
   end
