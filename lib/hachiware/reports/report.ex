@@ -11,8 +11,7 @@ defmodule Hachiware.Reports.Report do
     :changes_summary,
     :violations_analysis,
     :validation_details,
-    :policy_details,
-    :timing
+    :policy_details
   ]
 
   postgres do
@@ -52,7 +51,7 @@ defmodule Hachiware.Reports.Report do
     validate present(@code_fields, at_least: 1),
       where: [attribute_equals(:type, :code)]
 
-    validate present([:command, :name]),
+    validate present([:command, :name, :timing]),
       where: [attribute_equals(:type, :cloud)]
 
     validate absent(@code_fields),
@@ -179,7 +178,7 @@ defmodule Hachiware.Reports.Report do
 
     attribute :timing, :map do
       description """
-      This field is for code reports
+      This field is for code and cloud reports
       """
 
       constraints fields: [
